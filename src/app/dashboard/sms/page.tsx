@@ -1,0 +1,5 @@
+const SMS = () => {
+  return <div>SMS</div>;
+};
+
+export default SMS;

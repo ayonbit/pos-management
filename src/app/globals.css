@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --font-inter: var(--font-inter);
+  --font-jetbrains-mono: var(--font-jetbrains-mono);
+  --color-dashboardBg: #f7f8fa;
+  --color-Sky: #c3ebfa;
+  --color-SkyLight: #edf9fd;
+  --color-Purple: #cfceff;
+  --color-PurpleLight: #f1f0ff;
+  --color-Yellow: #fae27c;
+  --color-YellowLight: #fefce8;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Primary */
+  --color-primary: #3b82f6;
+  --color-primary-light: #dbeafe;
+  --color-primary-hover: #2563eb;
+  --color-primary-text: #1e40af;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Sky */
+  --color-sky: #0ea5e9;
+  --color-sky-light: #e0f2fe;
+  --color-sky-hover: #0284c7;
+  --color-sky-text: #0369a1;
+
+  /* Success */
+  --color-success: #22c55e;
+  --color-success-light: #dcfce7;
+  --color-success-hover: #16a34a;
+  --color-success-text: #166534;
+
+  /* Danger */
+  --color-danger: #ef4444;
+  --color-danger-light: #fee2e2;
+  --color-danger-hover: #dc2626;
+  --color-danger-text: #991b1b;
+
+  /* Outline */
+  --color-outline: #e5e7eb;
+  --color-outline-light: #f9fafb;
+  --color-outline-hover: #d1d5db;
+  --color-outline-text: #374151;
+
+  /* Grass */
+  --color-grass: #84cc16;
+  --color-grass-light: #ecfccb;
+  --color-grass-hover: #65a30d;
+  --color-grass-text: #365314;
+
+  /* Khaki */
+  --color-khaki: #c3b091;
+  --color-khaki-light: #f5f5dc;
+  --color-khaki-hover: #a68a64;
+  --color-khaki-text: #6b5e3c;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), sans-serif;
+}
+
+/* Hide scrollbar but keep scrolling */
+.sidebar-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar-scroll {
+  -ms-overflow-style: none; /* for IE & Edge */
+  scrollbar-width: none; /* for Firefox */
 }
