@@ -6,56 +6,61 @@ import Card from "@/components/ui/Card";
 import Pagination from "@/components/ui/Pagination";
 import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
-import { role, SalesData } from "@/lib/data";
-import { SalesType } from "@/types/Data.type";
+import { AssetsListData, role } from "@/lib/data";
+import { AssetsListType } from "@/types/Data.type";
 import Link from "next/link";
 import React, { useCallback } from "react";
-import { FaFilter, FaList, FaPlus } from "react-icons/fa";
-import { FaDownload } from "react-icons/fa6";
-import { IoEyeOutline } from "react-icons/io5";
+import { FaList, FaPlus, FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 
 const columns = [
-  { header: "Invoice Id", accessor: "invoice" },
-  { header: "Date", accessor: "date" },
-  { header: "Customer Name", accessor: "customer" },
-  { header: "Payable Amount", accessor: "payamount" },
-  { header: "Paid Amount", accessor: "paidamount" },
-  { header: "Due Amount", accessor: "dueamount" },
+  { header: "Assets Name", accessor: "assets" },
+  {
+    header: "Description",
+    accessor: "description",
+    className: "hidden md:table-cell",
+  },
+  {
+    header: "Opening Balance",
+    accessor: "openingbalance",
+  },
+  {
+    header: "Current Balance",
+    accessor: "currentbalance",
+  },
+
   { header: "Actions", accessor: "action" },
 ];
 
-const SalesPage = () => {
+const CompanyAssets = () => {
   const renderRow = useCallback((item: unknown) => {
-    const salesItem = item as SalesType;
+    const assetsItems = item as AssetsListType;
 
     return (
       <tr
-        key={salesItem.id}
+        key={assetsItems.id}
         className="border-b border-gray-200 even:bg-gray-100 odd:bg-outline-light text-xs sm:text-sm"
       >
-        <td className="px-2 py-2 whitespace-nowrap">{salesItem.InvoiceId}</td>
-        <td className="px-2 py-2 whitespace-nowrap">{salesItem.Date}</td>
-        <td className="px-2 py-2 whitespace-nowrap">
-          {salesItem.CustomerName}
+        <td className="px-2 py-2 whitespace-nowrap">{assetsItems.AssetName}</td>
+
+        <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
+          {assetsItems.Description}
         </td>
+
         <td className="px-2 py-2 whitespace-nowrap">
-          {salesItem.PayableAmount.toFixed(2)}
+          {assetsItems.OpeningBalance.toFixed(2)}
         </td>
+
         <td className="px-2 py-2 whitespace-nowrap">
-          {salesItem.PaidAmount.toFixed(2)}
+          {assetsItems.CurrentBalance.toFixed(2)}
         </td>
-        <td className="px-2 py-2 whitespace-nowrap">{salesItem.DueAmount}</td>
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${salesItem.id}`}>
-              <IoEyeOutline className="text-primary text-base sm:text-lg" />
+            <Link href={`/quotations/${assetsItems.id}`}>
+              <FaRegEdit className="text-success text-base sm:text-lg" />
             </Link>
-            <Link href={`/quotations/${salesItem.id}`}>
-              <FaDownload className="text-success text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${salesItem.id}`}>
+            <Link href={`/quotations/${assetsItems.id}`}>
               {role === "admin" && (
                 <MdDeleteOutline className="text-danger text-base sm:text-lg" />
               )}
@@ -74,37 +79,31 @@ const SalesPage = () => {
         <div className="flex items-center gap-3">
           <FaList size={22} />
           <h1 className="text-lg sm:text-xl font-semibold">
-            Sales Information
+            Company Assets List
           </h1>
         </div>
 
         {/* Actions */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full lg:w-auto">
-          {/* Search full width on mobile */}
+          {/* Search */}
           <div className="w-full sm:w-auto">
             <TableSearch />
           </div>
 
           {/* Buttons */}
           <div className="flex gap-2">
-            <Tooltip content="Add Sales" position="bottom">
+            <Tooltip content="Add Assets" position="bottom">
               <Button size="sm" className="flex items-center gap-1 px-3">
                 <FaPlus size={12} />
-              </Button>
-            </Tooltip>
-
-            <Tooltip content="Filter" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaFilter size={12} />
               </Button>
             </Tooltip>
           </div>
         </div>
       </div>
 
-      {/* Table Wrapper for Mobile Scroll */}
+      {/* Table Wrapper */}
       <div className="mt-4 w-full overflow-x-auto">
-        <Table columns={columns} renderRow={renderRow} data={SalesData} />
+        <Table columns={columns} renderRow={renderRow} data={AssetsListData} />
       </div>
 
       {/* Pagination */}
@@ -115,4 +114,4 @@ const SalesPage = () => {
   );
 };
 
-export default React.memo(SalesPage);
+export default React.memo(CompanyAssets);

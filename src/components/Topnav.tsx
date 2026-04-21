@@ -21,7 +21,7 @@ const TopNav = () => {
   };
 
   return (
-    <div className="flex items-center justify-between px-4 py-3 border-b rounded-md shadow-sm border-gray-300 bg-white">
+    <div className="flex items-center justify-between px-4 py-3.5 border-b rounded-md shadow-sm border-gray-300 bg-white">
       {/* LEFT */}
       <div className="flex items-center gap-4 min-w-30">
         <span className="text-sm leading-3 whitespace-nowrap font-semibold text-gray-700">

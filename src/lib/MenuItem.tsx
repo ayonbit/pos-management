@@ -13,18 +13,34 @@ import { IoPeople } from "react-icons/io5";
 import { LuRefreshCcw } from "react-icons/lu";
 
 import { MenuItem } from "@/types/Menu.types";
+import { AiOutlineDeploymentUnit } from "react-icons/ai";
+import { CiMoneyCheck1 } from "react-icons/ci";
+import { FaMoneyBillTransfer, FaPeoplePulling } from "react-icons/fa6";
+import { FcAlphabeticalSortingAz } from "react-icons/fc";
+import { GiExpense, GiTakeMyMoney } from "react-icons/gi";
+import { GoPackageDependencies } from "react-icons/go";
+import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import {
+  MdAccountBalanceWallet,
+  MdBarcodeReader,
+  MdBrowserUpdated,
   MdDashboard,
+  MdDashboardCustomize,
   MdEmail,
   MdOutlineCalendarMonth,
   MdOutlineFileUpload,
   MdOutlineHolidayVillage,
+  MdOutlineMoneyOff,
   MdOutlineSettingsSuggest,
+  MdOutlineTypeSpecimen,
   MdPeople,
   MdQrCode2,
   MdSettings,
   MdShoppingCart,
 } from "react-icons/md";
+import { RiFileDamageFill } from "react-icons/ri";
+import { SiBrandfolder } from "react-icons/si";
+import { TbAirConditioning, TbCategory2, TbCategoryPlus } from "react-icons/tb";
 import { TiArrowLoop } from "react-icons/ti";
 
 export const menuItems: MenuItem[] = [
@@ -65,6 +81,11 @@ export const menuItems: MenuItem[] = [
         label: "Sales Return",
         href: "/dashboard/sales/return",
         icon: TiArrowLoop,
+      },
+      {
+        label: "Sales Conditions",
+        href: "/dashboard/sales/conditions",
+        icon: TbAirConditioning,
       },
     ],
   },
@@ -109,55 +130,64 @@ export const menuItems: MenuItem[] = [
     label: "General Accounts",
     icon: FaRegMoneyBillAlt,
     children: [
-      { label: "Accounts", href: "/dashboard/general", icon: FaListOl },
+      {
+        label: "Accounts",
+        href: "/dashboard/accounts",
+        icon: MdAccountBalanceWallet,
+      },
       {
         label: "GI Accounts",
-        href: "/dashboard/general/accounts-gi",
-        icon: FaListOl,
+        href: "/dashboard/accounts/gi",
+        icon: HiMiniBuildingLibrary,
       },
       {
         label: "Chart of Accounts",
-        href: "/dashboard/general/accounts-chart",
-        icon: FaListOl,
+        href: "/dashboard/accounts/charts",
+        icon: GiExpense,
       },
       {
         label: "Company Assets",
-        href: "/dashboard/general/accounts-assets",
-        icon: FaListOl,
+        href: "/dashboard/accounts/assets",
+        icon: GiTakeMyMoney,
+      },
+      {
+        label: "Payment Method",
+        href: "/dashboard/accounts/payments",
+        icon: CiMoneyCheck1,
       },
       {
         label: "Company Liability",
-        href: "/dashboard/general/accounts-liablity",
-        icon: FaListOl,
+        href: "/dashboard/accounts/liability",
+        icon: MdOutlineMoneyOff,
       },
       {
         label: "Parties",
-        href: "/dashboard/general/accounts-parties",
-        icon: FaListOl,
+        href: "/dashboard/accounts/parties",
+        icon: FaPeoplePulling,
+      },
+      {
+        label: "Fund Transfer",
+        href: "/dashboard/accounts/transfer",
+        icon: FaMoneyBillTransfer,
       },
       {
         label: "Debit Voucher (Expense)",
-        href: "/dashboard/general/accounts-debitvoucher",
+        href: "/dashboard/accounts/debitvoucher",
         icon: FaPlus,
       },
       {
         label: "Credit Voucher (Income)",
-        href: "/dashboard/general/accounts-creditvoucher",
+        href: "/dashboard/accounts/creditvoucher",
         icon: FaPlus,
       },
       {
         label: "Add Assets",
-        href: "/dashboard/general/accounts-addassets",
+        href: "/dashboard/accounts/addassets",
         icon: FaPlus,
       },
       {
         label: "Add Liability",
-        href: "/dashboard/general/accounts-addliablity",
-        icon: FaPlus,
-      },
-      {
-        label: "Fund Transfer",
-        href: "/dashboard/general/accounts-transfer",
+        href: "/dashboard/accounts/addliablity",
         icon: FaPlus,
       },
     ],
@@ -198,7 +228,7 @@ export const menuItems: MenuItem[] = [
       },
       {
         label: "Salary List",
-        href: "/dashboard/payroll",
+        href: "/dashboard/payroll/salary",
         icon: FaRegMoneyBillAlt,
       },
     ],
@@ -207,58 +237,69 @@ export const menuItems: MenuItem[] = [
     label: "Products",
     icon: FaProductHunt,
     children: [
-      { label: "Product List", href: "/dashboard/product", icon: FaListOl },
-      { label: "Add", href: "/dashboard/product/add", icon: FaPlus },
+      { label: "Product List", href: "/dashboard/products", icon: FaListOl },
+
+      { label: "Add Products", href: "/dashboard/products/add", icon: FaPlus },
       {
         label: "Upload Product by CSV",
-        href: "/dashboard/product/create-csv",
+        href: "/dashboard/products/uploadcsv",
         icon: MdOutlineFileUpload,
       },
-      { label: "Manage Unit", href: "/dashboard/product/unit", icon: FaListOl },
+      {
+        label: "Manage Unit",
+        href: "/dashboard/products/units",
+        icon: AiOutlineDeploymentUnit,
+      },
+      {
+        label: "Manage Grade",
+        href: "/dashboard/products/grades",
+        icon: MdOutlineTypeSpecimen,
+      },
+
       {
         label: "Manage Brand",
-        href: "/dashboard/product/brand",
-        icon: FaListOl,
+        href: "/dashboard/products/brands",
+        icon: SiBrandfolder,
       },
       {
         label: "Manage Category",
-        href: "/dashboard/product/category",
-        icon: FaListOl,
+        href: "/dashboard/products/categories",
+        icon: TbCategoryPlus,
       },
       {
         label: "Manage Sub Category",
-        href: "/dashboard/product/subcategory",
-        icon: FaListOl,
+        href: "/dashboard/products/subcategories",
+        icon: TbCategory2,
       },
       {
-        label: "Manage Warehouse",
-        href: "/dashboard/product/warehouse",
-        icon: FaListOl,
+        label: "Manage Generics",
+        href: "/dashboard/products/generics",
+        icon: FcAlphabeticalSortingAz,
       },
       {
         label: "Manage Barcode",
-        href: "/dashboard/product/barcode",
-        icon: FaListOl,
+        href: "/dashboard/products/barcode",
+        icon: MdBarcodeReader,
       },
       {
         label: "Update Price",
-        href: "/dashboard/product/update",
-        icon: FaListOl,
+        href: "/dashboard/products/updateprice",
+        icon: MdBrowserUpdated,
       },
       {
         label: "Product Package",
-        href: "/dashboard/product/package",
-        icon: FaListOl,
+        href: "/dashboard/products/package",
+        icon: GoPackageDependencies,
       },
       {
         label: "Product Damage",
-        href: "/dashboard/product/damage",
-        icon: FaListOl,
+        href: "/dashboard/products/damages",
+        icon: RiFileDamageFill,
       },
       {
         label: "Customer Product Pricing",
-        href: "/dashboard/product/customerpricing",
-        icon: FaListOl,
+        href: "/dashboard/products/customprice",
+        icon: MdDashboardCustomize,
       },
     ],
   },

@@ -6,88 +6,89 @@ import Card from "@/components/ui/Card";
 import Pagination from "@/components/ui/Pagination";
 import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
-import { role } from "@/lib/data";
-import { Product } from "@/lib/ProductsData";
-import { ProductType } from "@/types/Products.types";
-import Image from "next/image";
+import { AccountListData, role } from "@/lib/data";
+import { AccountListType } from "@/types/Data.type";
 import Link from "next/link";
 import React, { useCallback } from "react";
 import { FaFilter, FaList, FaPlus, FaRegEdit } from "react-icons/fa";
-import { IoEyeOutline } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 
 const columns = [
-  { header: "Supplier", accessor: "supplier" },
-  { header: "Product Name", accessor: "product" },
-  { header: "Product Image", accessor: "img" },
+  { header: "Bank Name", accessor: "bank" },
   {
-    header: "Product Code",
-    accessor: "pcode",
+    header: "Branch Name",
+    accessor: "branch",
     className: "hidden md:table-cell",
   },
-  { header: "Unit", accessor: "address" },
-  { header: "SKU NO", accessor: "sku" },
-  { header: "Price", accessor: "price" },
-  { header: "Quantity", accessor: "quantity" },
+  {
+    header: "Account Name",
+    accessor: "account",
+  },
+  {
+    header: "Account No",
+    accessor: "accnumber",
+  },
+  { header: "Opening Balance", accessor: "balance" },
+  { header: "Status", accessor: "status" },
+  { header: "Default", accessor: "default" },
   { header: "Actions", accessor: "action" },
 ];
 
-const ProductPage = () => {
+const GeneralAccount = () => {
   const renderRow = useCallback((item: unknown) => {
-    const productItem = item as ProductType;
+    const accountItem = item as AccountListType;
 
     return (
       <tr
-        key={productItem.id}
+        key={accountItem.id}
         className="border-b border-gray-200 even:bg-gray-100 odd:bg-outline-light text-xs sm:text-sm"
       >
-        <td className="px-2 py-2 whitespace-nowrap">
-          {productItem.SupplierName}
-        </td>
+        <td className="px-2 py-2 whitespace-nowrap">{accountItem.BankName}</td>
 
         <td className="px-2 py-2 whitespace-nowrap">
-          {productItem.ProductName}
-        </td>
-
-        <td className="px-2 py-2 text-center whitespace-nowrap">
-          <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 mx-auto">
-            <Image
-              src={productItem.ProductImage || "/globe.svg"}
-              alt={productItem.ProductName || "Product image"}
-              fill
-              className="object-cover rounded-md"
-              sizes="(max-width: 640px) 32px, (max-width: 768px) 40px, (max-width: 1024px) 48px, 56px"
-            />
-          </div>
+          {accountItem.BranchName}
         </td>
 
         <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
-          {productItem.ProductCode}
+          {accountItem.AccountName}
         </td>
 
-        <td className="px-2 py-2 whitespace-nowrap">
-          {productItem.ProductUnit}
+        <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
+          {accountItem.AccountNo}
         </td>
 
-        <td className="px-2 py-2 whitespace-nowrap">{productItem.SKU}</td>
-
-        <td className="px-2 py-2 whitespace-nowrap">
-          {productItem.SalesPrice}
+        <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
+          {accountItem.OpeningBalance.toFixed(2)}
         </td>
-
-        <td className="px-2 py-2 whitespace-nowrap">
-          {productItem.OpeningQuantity}
+        <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
+          <span
+            className={`px-2 py-1 rounded-full text-xs font-semibold ${
+              accountItem.status
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            }`}
+          >
+            {accountItem.status ? "Active" : "Inactive"}
+          </span>
+        </td>
+        <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
+          <span
+            className={`px-2 py-1 rounded-full text-xs font-semibold ${
+              accountItem.default
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            }`}
+          >
+            {accountItem.default ? "Yes" : "No"}
+          </span>
         </td>
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${productItem.id}`}>
-              <IoEyeOutline className="text-primary text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${productItem.id}`}>
+            <Link href={`/quotations/${accountItem.id}`}>
               <FaRegEdit className="text-success text-base sm:text-lg" />
             </Link>
-            <Link href={`/quotations/${productItem.id}`}>
+            <Link href={`/quotations/${accountItem.id}`}>
               {role === "admin" && (
                 <MdDeleteOutline className="text-danger text-base sm:text-lg" />
               )}
@@ -105,7 +106,9 @@ const ProductPage = () => {
         {/* Title */}
         <div className="flex items-center gap-3">
           <FaList size={22} />
-          <h1 className="text-lg sm:text-xl font-semibold">Product List</h1>
+          <h1 className="text-lg sm:text-xl font-semibold">
+            Banking Account List
+          </h1>
         </div>
 
         {/* Actions */}
@@ -117,7 +120,7 @@ const ProductPage = () => {
 
           {/* Buttons */}
           <div className="flex gap-2">
-            <Tooltip content="Add Product" position="bottom">
+            <Tooltip content="Add Customer" position="bottom">
               <Button size="sm" className="flex items-center gap-1 px-3">
                 <FaPlus size={12} />
               </Button>
@@ -134,7 +137,7 @@ const ProductPage = () => {
 
       {/* Table Wrapper */}
       <div className="mt-4 w-full overflow-x-auto">
-        <Table columns={columns} renderRow={renderRow} data={Product} />
+        <Table columns={columns} renderRow={renderRow} data={AccountListData} />
       </div>
 
       {/* Pagination */}
@@ -145,4 +148,4 @@ const ProductPage = () => {
   );
 };
 
-export default React.memo(ProductPage);
+export default React.memo(GeneralAccount);
