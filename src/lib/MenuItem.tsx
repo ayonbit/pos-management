@@ -8,6 +8,7 @@ import {
   FaRegMoneyBillAlt,
   FaTruck,
   FaUser,
+  FaUserCog,
 } from "react-icons/fa";
 import { IoPeople } from "react-icons/io5";
 import { LuRefreshCcw } from "react-icons/lu";
@@ -38,6 +39,7 @@ import {
   MdSettings,
   MdShoppingCart,
 } from "react-icons/md";
+import { PiUserListBold } from "react-icons/pi";
 import { RiFileDamageFill } from "react-icons/ri";
 import { SiBrandfolder } from "react-icons/si";
 import { TbAirConditioning, TbCategory2, TbCategoryPlus } from "react-icons/tb";
@@ -417,8 +419,12 @@ export const menuItems: MenuItem[] = [
     label: "Users",
     icon: FaUser,
     children: [
-      { label: "Manage User", href: "/dashboard/user", icon: FaListOl },
-      { label: "User Roles", href: "/dashboard/user/roles", icon: FaListOl },
+      {
+        label: "Manage User",
+        href: "/dashboard/users/manage",
+        icon: PiUserListBold,
+      },
+      { label: "User Roles", href: "/dashboard/users/roles", icon: FaUserCog },
     ],
   },
   {

@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import TableSearch from "@/components/TableSearch";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -8,7 +9,6 @@ import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
 import { QuotationData, role } from "@/lib/data";
 import { QuotationType } from "@/types/Data.type";
-import Link from "next/link";
 import React, { useCallback } from "react";
 import { FaFilter, FaList, FaPlus, FaRegEdit } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
@@ -17,20 +17,20 @@ import { MdDeleteOutline } from "react-icons/md";
 const columns = [
   {
     header: "Date",
-    accessor: "date",
+    accessor: "Date",
     className: "hidden md:table-cell",
   },
   {
     header: "Reference",
-    accessor: "reference",
+    accessor: "QuotationId",
   },
   {
     header: "Customer",
-    accessor: "customer",
+    accessor: "CustomerName",
   },
   {
     header: "TotalPayable",
-    accessor: "totalpayable",
+    accessor: "TotalPayable",
   },
   {
     header: "Actions",
@@ -60,22 +60,50 @@ const Quotations = () => {
         </td>
 
         <td className="px-2 py-2 whitespace-nowrap">
-          {quotationItem.TotalPayable?.toFixed(2)}
+          {quotationItem.TotalPayable
+            ? quotationItem.TotalPayable.toFixed(2)
+            : "0.00"}
         </td>
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${quotationItem.id}`}>
-              <IoEyeOutline className="text-primary text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${quotationItem.id}`}>
-              <FaRegEdit className="text-success text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${quotationItem.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            {/* VIEW */}
+            {/* <Link href={`/dashboard/quotations/${quotationItem.id}`}></Link> */}
+            <Tooltip content="View" position="bottom">
+              <FormModal type="view" table="quotation" id={quotationItem.id}>
+                <IoEyeOutline
+                  size={16}
+                  className="text-primary text-base sm:text-lg"
+                />
+              </FormModal>
+            </Tooltip>
+
+            {/* EDIT */}
+            {/* <Link href={`/dashboard/quotations/${quotationItem.id}`}> </Link> */}
+            <Tooltip content="Edit" position="bottom">
+              <FormModal type="update" table="quotation" data={quotationItem}>
+                <FaRegEdit
+                  size={16}
+                  className="text-success text-base sm:text-lg"
+                />
+              </FormModal>
+            </Tooltip>
+
+            {/* DELETE */}
+            {role === "admin" && (
+              <Tooltip content="Delete" position="bottom">
+                <FormModal
+                  table="quotation"
+                  type="delete"
+                  id={quotationItem.id}
+                >
+                  <MdDeleteOutline
+                    size={16}
+                    className="text-danger text-base sm:text-lg"
+                  />
+                </FormModal>
+              </Tooltip>
+            )}
           </div>
         </td>
       </tr>
@@ -102,14 +130,20 @@ const Quotations = () => {
           {/* Buttons */}
           <div className="flex gap-2">
             <Tooltip content="Add Quotation" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-              </Button>
+              <FormModal table="quotation" type="create">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="flex items-center gap-1 px-3"
+                >
+                  <FaPlus size={16} />
+                </Button>
+              </FormModal>
             </Tooltip>
 
             <Tooltip content="Filter" position="bottom">
               <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaFilter size={12} />
+                <FaFilter size={16} />
               </Button>
             </Tooltip>
           </div>

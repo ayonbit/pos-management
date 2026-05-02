@@ -16,7 +16,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="h-screen  mt-4 text-sm w-16 md:w-56 lg:w-64 transition-all duration-300">
+    <div className="h-screen mt-4 text-sm w-screen md:w-56 lg:w-64 transition-all duration-300">
       <ul className="space-y-1">
         {menuItems.map((item, index) => {
           const Icon = item.icon;
@@ -29,11 +29,11 @@ const Sidebar = () => {
             <li key={item.label}>
               {/* WITH CHILDREN */}
               {item.children ? (
-                <div className="">
+                <div>
                   <button
                     type="button"
                     onClick={() => toggleDropdown(index)}
-                    className=" border-b border-gray-300 shadow-sm  relative flex items-center justify-center md:justify-between w-full py-2 px-2 rounded-md hover:bg-SkyLight cursor-pointer"
+                    className="border-b border-gray-300 shadow-sm relative flex items-center justify-center w-full py-2 px-2 rounded-md hover:bg-SkyLight cursor-pointer"
                     title={item.label}
                   >
                     {/* LEFT ACTIVE BAR */}
@@ -41,24 +41,24 @@ const Sidebar = () => {
                       <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-[3px] bg-black rounded-r-md"></span>
                     )}
 
-                    <div className=" flex items-center justify-center md:justify-start gap-4 w-full md:ml-2">
-                      <Icon className="text-base text-gray-500" />
-                      <span className="hidden md:block text-gray-600">
+                    <div className="flex items-center justify-center gap-4 w-full md:justify-start md:ml-2">
+                      <Icon className="text-base text-gray-500 shrink-0" />
+                      <span className="hidden md:inline-block text-gray-600">
                         {item.label}
                       </span>
                     </div>
 
                     {/* Arrow only on tablet+ */}
                     <MdOutlineArrowRight
-                      className={`hidden md:block transition-transform duration-200 text-gray-400 ${
+                      className={`hidden md:block transition-transform duration-200 text-gray-400 shrink-0 ${
                         isOpen ? "rotate-90" : ""
-                      }`}
+                      } ${item.label ? "md:ml-auto" : ""}`}
                     />
                   </button>
 
                   {/* DROPDOWN */}
                   {isOpen && (
-                    <div className="ml-0 md:ml-6 mt-1 flex flex-col gap-1 ">
+                    <div className="ml-0 md:ml-6 mt-1 flex flex-col gap-1">
                       {item.children.map((child, i) => {
                         const ChildIcon = child.icon;
                         const isActive = pathname.startsWith(child.href!);
@@ -68,17 +68,17 @@ const Sidebar = () => {
                             href={child.href!}
                             key={i}
                             title={child.label}
-                            className=" shadow-sm border-b border-gray-300 relative flex items-center justify-center md:justify-start gap-4 py-2 px-2 rounded-md hover:bg-SkyLight"
+                            className="shadow-sm border-b border-gray-300 relative flex items-center justify-center md:justify-start gap-4 py-2 px-2 rounded-md hover:bg-SkyLight"
                           >
                             {/* ACTIVE BAR */}
                             {isActive && (
                               <span className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-[3px] bg-black rounded-r-md"></span>
                             )}
 
-                            <div className="flex items-center justify-center md:justify-start gap-4 w-full md:ml-2">
-                              <ChildIcon className="text-sm text-gray-500" />
+                            <div className="flex items-center justify-center gap-4 w-full md:justify-start md:ml-2">
+                              <ChildIcon className="text-sm text-gray-500 shrink-0" />
                               <span
-                                className={`hidden md:block ${
+                                className={`hidden md:inline-block ${
                                   isActive
                                     ? "font-medium text-gray-800"
                                     : "text-gray-500"
@@ -98,17 +98,17 @@ const Sidebar = () => {
                 <Link
                   href={item.href!}
                   title={item.label}
-                  className="border-b  border-gray-300 relative flex items-center justify-center md:justify-start gap-4 py-2 px-2 rounded-md hover:bg-SkyLight"
+                  className="border-b border-gray-300 relative flex items-center justify-center md:justify-start gap-4 py-2 px-2 rounded-md hover:bg-SkyLight"
                 >
                   {/* ACTIVE BAR */}
                   {pathname === item.href && (
                     <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-[3px] bg-black rounded-r-md"></span>
                   )}
 
-                  <div className=" flex items-center justify-center md:justify-start gap-4 w-full md:ml-2">
-                    <Icon className="text-base text-gray-500" />
+                  <div className="flex items-center justify-center gap-4 w-full md:justify-start md:ml-2">
+                    <Icon className="text-base text-gray-500 shrink-0" />
                     <span
-                      className={`hidden md:block ${
+                      className={`hidden md:inline-block ${
                         pathname === item.href
                           ? "font-medium text-gray-800"
                           : "text-gray-500"

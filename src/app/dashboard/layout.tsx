@@ -8,7 +8,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="h-screen flex overflow-hidden">
       {/* side bar */}
-      <div className="h-full  w-16 md:w-56 lg:w-64 transition-all duration-300">
+      <div className="h-full w-16 sm:w-20 md:w-56 lg:w-64 transition-all duration-300">
         {/* For Logo */}
 
         <div className="p-2">
@@ -28,7 +28,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         {/* page content   */}
-        <div className="flex-1 overflow-y-auto p-2 bg-dashboardBg">
+        <div className="flex-1 overflow-y-auto p-2 sm:p-3 md:p-4 bg-dashboardBg">
           {children}
         </div>
       </main>

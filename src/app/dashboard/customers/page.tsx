@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import TableSearch from "@/components/TableSearch";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -8,7 +9,6 @@ import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
 import { CustomerData, role } from "@/lib/data";
 import { CustomerType } from "@/types/Data.type";
-import Link from "next/link";
 import React, { useCallback } from "react";
 import { FaFilter, FaList, FaPlus, FaRegEdit } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
@@ -73,17 +73,39 @@ const CustomerPage = () => {
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${customerItem.id}`}>
-              <IoEyeOutline className="text-primary text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${customerItem.id}`}>
-              <FaRegEdit className="text-success text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${customerItem.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            {/* VIEW */}
+            {/* <Link href={`/dashboard/customers/${customerItem.id}`}></Link> */}
+            <Tooltip content="View" position="bottom">
+              <FormModal type="view" table="customer" id={customerItem.id}>
+                <IoEyeOutline
+                  size={16}
+                  className="text-primary text-base sm:text-lg"
+                />
+              </FormModal>
+            </Tooltip>
+
+            {/* EDIT */}
+            {/* <Link href={`/dashboard/customers/${customerItem.id}`}> </Link> */}
+            <Tooltip content="Edit" position="bottom">
+              <FormModal type="update" table="customer" data={customerItem}>
+                <FaRegEdit
+                  size={16}
+                  className="text-success text-base sm:text-lg"
+                />
+              </FormModal>
+            </Tooltip>
+
+            {/* DELETE */}
+            {role === "admin" && (
+              <Tooltip content="Delete" position="bottom">
+                <FormModal table="customer" type="delete" id={customerItem.id}>
+                  <MdDeleteOutline
+                    size={16}
+                    className="text-danger text-base sm:text-lg"
+                  />
+                </FormModal>
+              </Tooltip>
+            )}
           </div>
         </td>
       </tr>
@@ -110,14 +132,20 @@ const CustomerPage = () => {
           {/* Buttons */}
           <div className="flex gap-2">
             <Tooltip content="Add Customer" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-              </Button>
+              <FormModal table="customer" type="create">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="flex items-center gap-1 px-3"
+                >
+                  <FaPlus size={16} />
+                </Button>
+              </FormModal>
             </Tooltip>
 
             <Tooltip content="Filter" position="bottom">
               <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaFilter size={12} />
+                <FaFilter size={16} />
               </Button>
             </Tooltip>
           </div>

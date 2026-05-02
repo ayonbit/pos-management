@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import TableSearch from "@/components/TableSearch";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -8,7 +9,6 @@ import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
 import { role, SupplierData } from "@/lib/data";
 import { SupplierType } from "@/types/Data.type";
-import Link from "next/link";
 import React, { useCallback } from "react";
 import { FaFilter, FaList, FaPlus, FaRegEdit } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
@@ -24,7 +24,7 @@ const columns = [
   },
   { header: "Phone", accessor: "phone" },
   { header: "Address", accessor: "address", className: "hidden md:table-cell" },
-  { header: "Email", accessor: "email", className: "hidden md:table-cell" },
+
   { header: "Current Balance", accessor: "balance" },
   { header: "Actions", accessor: "action" },
 ];
@@ -38,45 +38,63 @@ const SupplierPage = () => {
         key={supplierItem.id}
         className="border-b border-gray-200 even:bg-gray-100 odd:bg-outline-light text-xs sm:text-sm"
       >
-        <td className="px-2 py-2 whitespace-nowrap">
+        <td className="px-1 py-2 whitespace-nowrap">
           {supplierItem.SupplierId}
         </td>
 
-        <td className="px-2 py-2 whitespace-nowrap">
+        <td className="px-1 py-2 whitespace-nowrap">
           {supplierItem.SupplierName}
         </td>
 
-        <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
+        <td className="hidden md:table-cell px-1 py-2 whitespace-nowrap">
           {supplierItem.company}
         </td>
 
-        <td className="px-2 py-2 whitespace-nowrap">{supplierItem.Phone}</td>
+        <td className="px-1 py-2 whitespace-nowrap">{supplierItem.Phone}</td>
 
-        <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
+        <td className="hidden md:table-cell px-1 py-2 whitespace-nowrap">
           {supplierItem.Address}
         </td>
 
-        <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
-          {supplierItem.Email}
-        </td>
-
-        <td className="px-2 py-2 text-center whitespace-nowrap">
+        <td className="px-1 py-2 text-center whitespace-nowrap">
           {supplierItem.Balance.toFixed(2)}
         </td>
 
-        <td className="px-2 py-2">
+        <td className="px-1 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${supplierItem.id}`}>
-              <IoEyeOutline className="text-primary text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${supplierItem.id}`}>
-              <FaRegEdit className="text-success text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${supplierItem.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            {/* VIEW */}
+            {/* <Link href={`/dashboard/suppliers/${supplierItem.id}`}></Link> */}
+            <Tooltip content="View" position="bottom">
+              <FormModal type="view" table="supplier" id={supplierItem.id}>
+                <IoEyeOutline
+                  size={16}
+                  className="text-primary text-base sm:text-lg"
+                />
+              </FormModal>
+            </Tooltip>
+
+            {/* EDIT */}
+            {/* <Link href={`/dashboard/suppliers/${supplierItem.id}`}> </Link> */}
+            <Tooltip content="Edit" position="bottom">
+              <FormModal type="update" table="supplier" data={supplierItem}>
+                <FaRegEdit
+                  size={16}
+                  className="text-success text-base sm:text-lg"
+                />
+              </FormModal>
+            </Tooltip>
+
+            {/* DELETE */}
+            {role === "admin" && (
+              <Tooltip content="Delete" position="bottom">
+                <FormModal table="supplier" type="delete" id={supplierItem.id}>
+                  <MdDeleteOutline
+                    size={16}
+                    className="text-danger text-base sm:text-lg"
+                  />
+                </FormModal>
+              </Tooltip>
+            )}
           </div>
         </td>
       </tr>
@@ -103,14 +121,20 @@ const SupplierPage = () => {
           {/* Buttons */}
           <div className="flex gap-2">
             <Tooltip content="Add Supplier" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-              </Button>
+              <FormModal table="supplier" type="create">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="flex items-center gap-1 px-3"
+                >
+                  <FaPlus size={16} />
+                </Button>
+              </FormModal>
             </Tooltip>
 
             <Tooltip content="Filter" position="bottom">
               <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaFilter size={12} />
+                <FaFilter size={16} />
               </Button>
             </Tooltip>
           </div>
