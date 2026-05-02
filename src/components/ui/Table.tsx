@@ -5,7 +5,7 @@ import React from "react";
 
 const Table = <T,>({ columns, data, renderRow }: TableProps<T>) => {
   return (
-    <div className="w-full overflow-x-auto">
+    <div className="w-full overflow-x-auto no-scrollbar">
       <table className="w-full mt-2 border-collapse min-w-max">
         {/* Header */}
         <thead>

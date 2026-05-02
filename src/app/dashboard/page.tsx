@@ -15,6 +15,12 @@ const Dashboard = () => {
       <Card title="Monthly Chart">
         <MonthlyCharts />
       </Card>
+      <Card title="Monthly Chart">
+        <MonthlyCharts />
+      </Card>
+      <Card title="Monthly Chart">
+        <MonthlyCharts />
+      </Card>
     </div>
   );
 };
