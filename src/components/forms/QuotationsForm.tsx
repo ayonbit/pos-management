@@ -1,6 +1,12 @@
 "use client";
 
-const QuotationsForm = () => {
+const QuotationsForm = ({
+  type,
+  data,
+}: {
+  type: "create" | "update";
+  data?: any;
+}) => {
   return <div>QuotationsForm</div>;
 };
 

@@ -80,7 +80,7 @@ const Quotations = () => {
 
             {/* EDIT */}
             {/* <Link href={`/dashboard/quotations/${quotationItem.id}`}> </Link> */}
-            <Tooltip content="Edit" position="bottom">
+            <Tooltip content="Update" position="bottom">
               <FormModal type="update" table="quotation" data={quotationItem}>
                 <FaRegEdit
                   size={16}

@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import TableSearch from "@/components/TableSearch";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -8,7 +9,6 @@ import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
 import { CusCategory, role } from "@/lib/data";
 import { CustomerCat } from "@/types/Data.type";
-import Link from "next/link";
 import { useCallback } from "react";
 import { FaFilter, FaList, FaPlus, FaRegEdit } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
@@ -68,17 +68,49 @@ const CustomerCategory = () => {
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${customerCategory.id}`}>
-              <IoEyeOutline className="text-primary text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${customerCategory.id}`}>
-              <FaRegEdit className="text-success text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${customerCategory.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            {/* VIEW */}
+            {/* <Link href={`/dashboard/quotations/${customerCategory.id}`}></Link> */}
+            <Tooltip content="View" position="bottom">
+              <FormModal
+                type="view"
+                table="customerCategory"
+                id={customerCategory.id}
+              >
+                <IoEyeOutline
+                  size={16}
+                  className="text-primary text-base sm:text-lg"
+                />
+              </FormModal>
+            </Tooltip>
+
+            {/* Update */}
+            {/* <Link href={`/quotations/${customerCategory.id}`}></Link> */}
+            <Tooltip content="Update" position="bottom">
+              <FormModal
+                type="update"
+                table="customerCategory"
+                id={customerCategory.id}
+              >
+                <FaRegEdit className="text-success text-base sm:text-lg" />
+              </FormModal>
+            </Tooltip>
+
+            {/* DELETE */}
+            {/* <Link href={`/quotations/${customerCategory.id}`}></Link> */}
+            {role === "admin" && (
+              <Tooltip content="Delete" position="bottom">
+                <FormModal
+                  table="customerCategory"
+                  type="delete"
+                  id={customerCategory.id}
+                >
+                  <MdDeleteOutline
+                    size={16}
+                    className="text-danger text-base sm:text-lg"
+                  />
+                </FormModal>
+              </Tooltip>
+            )}
           </div>
         </td>
       </tr>
@@ -107,9 +139,15 @@ const CustomerCategory = () => {
           {/* Buttons */}
           <div className="flex gap-2">
             <Tooltip content="Add Category" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-              </Button>
+              <FormModal table="customerCategory" type="create">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="flex items-center gap-1 px-3"
+                >
+                  <FaPlus size={16} />
+                </Button>
+              </FormModal>
             </Tooltip>
 
             <Tooltip content="Filter" position="bottom">

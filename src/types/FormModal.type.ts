@@ -5,7 +5,9 @@ export interface FormModalProps {
     | "sale"
     | "customer"
     | "supplier"
-    | "employee";
+    | "employee"
+    | "customerCategory";
+
   type: "view" | "create" | "update" | "delete";
   data?: any;
   id?: number;
