@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import TableSearch from "@/components/TableSearch";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -9,7 +10,6 @@ import Tooltip from "@/components/ui/ToolTips";
 import { role } from "@/lib/data";
 import { ProductBrand } from "@/lib/ProductsData";
 import { ProductBrandType } from "@/types/Products.types";
-import Link from "next/link";
 import React, { useCallback } from "react";
 import { FaFilter, FaList, FaPlus, FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
@@ -48,14 +48,30 @@ const BrandPage = () => {
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${brandItem.id}`}>
-              <FaRegEdit className="text-success text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${brandItem.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            <Tooltip content="Update" position="bottom">
+              <FormModal
+                table="productBrand"
+                type="update"
+                id={brandItem.id}
+                data={ProductBrand.find((brand) => brand.id === brandItem.id)}
+              >
+                <FaRegEdit
+                  size={16}
+                  className="text-success text-base sm:text-lg"
+                />
+              </FormModal>
+            </Tooltip>
+
+            {role === "admin" && (
+              <Tooltip content="Delete" position="bottom">
+                <FormModal table="productBrand" type="delete" id={brandItem.id}>
+                  <MdDeleteOutline
+                    size={16}
+                    className="text-danger text-base sm:text-lg"
+                  />
+                </FormModal>
+              </Tooltip>
+            )}
           </div>
         </td>
       </tr>
@@ -79,12 +95,18 @@ const BrandPage = () => {
             <TableSearch />
           </div>
 
-          {/* Buttons */}
+          {/* Buttons and Create Form */}
           <div className="flex gap-2">
             <Tooltip content="Add Brand" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-              </Button>
+              <FormModal table="productBrand" type="create">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="flex items-center gap-1 px-3"
+                >
+                  <FaPlus size={12} />
+                </Button>
+              </FormModal>
             </Tooltip>
 
             <Tooltip content="Filter" position="bottom">

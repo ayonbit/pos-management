@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Pagination from "@/components/ui/Pagination";
@@ -8,13 +9,12 @@ import Tooltip from "@/components/ui/ToolTips";
 import { role } from "@/lib/data";
 import { ProductGrade } from "@/lib/ProductsData";
 import { ProductGradeType } from "@/types/Products.types";
-import Link from "next/link";
 import React, { useCallback } from "react";
 import { FaList, FaPlus, FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 
 const columns = [
-  { header: "Grade Name", accessor: "grade" },
+  { header: "Grade Name", accessor: "productGrade" },
   { header: "Description", accessor: "description" },
   { header: "Status", accessor: "status" },
   { header: "Actions", accessor: "action" },
@@ -29,7 +29,9 @@ const GradePage = () => {
         key={gradeItem.id}
         className="border-b border-gray-200 even:bg-gray-100 odd:bg-outline-light text-xs sm:text-sm"
       >
-        <td className="px-2 py-2 whitespace-nowrap">{gradeItem.grade}</td>
+        <td className="px-2 py-2 whitespace-nowrap">
+          {gradeItem.productGrade}
+        </td>
 
         {/* FIXED ORDER */}
         <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
@@ -50,14 +52,26 @@ const GradePage = () => {
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${gradeItem.id}`}>
-              <FaRegEdit className="text-success text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${gradeItem.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            <Tooltip content="Update" position="bottom">
+              <FormModal
+                table="productGrade"
+                type="update"
+                id={gradeItem.id}
+                data={ProductGrade.find((grade) => grade.id === gradeItem.id)}
+              >
+                <FaRegEdit
+                  size={16}
+                  className="text-success text-base sm:text-lg"
+                />
+              </FormModal>
+            </Tooltip>
+            {role === "admin" && (
+              <Tooltip content="Delete" position="bottom">
+                <FormModal table="productGrade" type="delete" id={gradeItem.id}>
+                  <MdDeleteOutline className="text-danger text-base sm:text-lg" />
+                </FormModal>
+              </Tooltip>
+            )}
           </div>
         </td>
       </tr>
@@ -79,9 +93,15 @@ const GradePage = () => {
           {/* Buttons */}
           <div className="flex gap-2">
             <Tooltip content="Add Grade" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-              </Button>
+              <FormModal table="productGrade" type="create">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="flex items-center gap-1 px-3"
+                >
+                  <FaPlus size={12} />
+                </Button>
+              </FormModal>
             </Tooltip>
           </div>
         </div>

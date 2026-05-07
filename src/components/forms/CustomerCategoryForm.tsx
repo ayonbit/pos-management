@@ -15,6 +15,8 @@ type Props = {
   onClose?: () => void;
 };
 
+
+
 const CustomerCategoryForm = ({ type, data, onClose }: Props) => {
   const {
     register,
@@ -55,6 +57,7 @@ const CustomerCategoryForm = ({ type, data, onClose }: Props) => {
         error={errors.CusCatName}
         placeholder="Enter category name"
       />
+     
 
       {/* Description */}
       <InputField<CustomerCategoryInput>

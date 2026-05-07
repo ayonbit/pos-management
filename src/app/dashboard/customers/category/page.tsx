@@ -11,7 +11,6 @@ import { CusCategory, role } from "@/lib/data";
 import { CustomerCat } from "@/types/Data.type";
 import { useCallback } from "react";
 import { FaFilter, FaList, FaPlus, FaRegEdit } from "react-icons/fa";
-import { IoEyeOutline } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 
 const columns = [
@@ -68,35 +67,21 @@ const CustomerCategory = () => {
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            {/* VIEW */}
-            {/* <Link href={`/dashboard/quotations/${customerCategory.id}`}></Link> */}
-            <Tooltip content="View" position="bottom">
-              <FormModal
-                type="view"
-                table="customerCategory"
-                id={customerCategory.id}
-              >
-                <IoEyeOutline
-                  size={16}
-                  className="text-primary text-base sm:text-lg"
-                />
-              </FormModal>
-            </Tooltip>
-
             {/* Update */}
-            {/* <Link href={`/quotations/${customerCategory.id}`}></Link> */}
+
             <Tooltip content="Update" position="bottom">
               <FormModal
                 type="update"
                 table="customerCategory"
                 id={customerCategory.id}
+                data={CusCategory.find((cat) => cat.id === customerCategory.id)}
               >
                 <FaRegEdit className="text-success text-base sm:text-lg" />
               </FormModal>
             </Tooltip>
 
             {/* DELETE */}
-            {/* <Link href={`/quotations/${customerCategory.id}`}></Link> */}
+
             {role === "admin" && (
               <Tooltip content="Delete" position="bottom">
                 <FormModal
@@ -145,7 +130,7 @@ const CustomerCategory = () => {
                   variant="outline"
                   className="flex items-center gap-1 px-3"
                 >
-                  <FaPlus size={16} />
+                  <FaPlus size={12} />
                 </Button>
               </FormModal>
             </Tooltip>

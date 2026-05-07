@@ -85,7 +85,7 @@ export type GeneralAccountType = {
 
 export type AccountListType = {
   id: number;
-  AccountNo: number;
+  AccountNo: string;
   AccountName: string;
   BankName: string;
   BranchName: string;

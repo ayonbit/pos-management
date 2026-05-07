@@ -263,20 +263,20 @@ export const ProductBrand = [
 
 export const ProductGrade = [
   {
-    id: "1",
-    grade: "A",
+    id: 1,
+    productGrade: "A",
     description: "A Grade QUality",
     status: true,
   },
   {
-    id: "2",
-    grade: "B",
+    id: 2,
+    productGrade: "B",
     description: "B Grade QUality",
     status: true,
   },
   {
-    id: "3",
-    grade: "C",
+    id: 3,
+    productGrade: "C",
     description: "C Grade QUality",
     status: false,
   },

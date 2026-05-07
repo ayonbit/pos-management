@@ -2,13 +2,17 @@ export interface FormModalProps {
   table:
     | "quotation"
     | "product"
-    | "sale"
+    | "sales"
     | "customer"
     | "supplier"
     | "employee"
-    | "customerCategory";
+    | "customerCategory"
+    | "productBrand"
+    | "productGrade"
+    | "productUnit"
+    | "accountList";
 
-  type: "view" | "create" | "update" | "delete";
+  type: "create" | "update" | "delete";
   data?: any;
   id?: number;
   onSuccess?: () => void;

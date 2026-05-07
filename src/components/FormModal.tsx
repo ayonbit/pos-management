@@ -3,12 +3,90 @@
 import { FormModalProps } from "@/types/FormModal.type";
 import { AnimatePresence, easeIn, easeOut, motion } from "framer-motion";
 import { ReactNode, useEffect, useState } from "react";
-import CustomerCategoryForm from "./forms/CustomerCategoryForm";
+
+import dynamic from "next/dynamic";
 import Button from "./ui/Button";
 
 interface Props extends FormModalProps {
   children: ReactNode;
 }
+const AccountListForm = dynamic(
+  () => import("./forms/GeneralAccounts/AccountListForm"),
+  {
+    loading: () => <p>Loading...</p>,
+  },
+);
+const CustomerCategoryForm = dynamic(
+  () => import("./forms/CustomerCategoryForm"),
+  {
+    loading: () => <p>Loading...</p>,
+  },
+);
+const ProductBrandFrom = dynamic(
+  () => import("./forms/Product/ProductBrandForm"),
+  {
+    loading: () => <p>Loading...</p>,
+  },
+);
+
+const ProductGradeForm = dynamic(
+  () => import("./forms/Product/ProductGradeForm"),
+  {
+    loading: () => <p>Loading...</p>,
+  },
+);
+
+const forms: {
+  [key: string]: (
+    type: "create" | "update",
+    data?: any,
+    onClose?: () => void,
+  ) => React.ReactNode;
+} = {
+  accountList: (type, data, onClose) => (
+    <AccountListForm type={type} data={data} onClose={onClose} />
+  ),
+
+  customerCategory: (type, data, onClose) => (
+    <CustomerCategoryForm type={type} data={data} onClose={onClose} />
+  ),
+
+  productBrand: (type, data, onClose) => (
+    <ProductBrandFrom type={type} data={data} onClose={onClose} />
+  ),
+
+  productGrade: (type, data, onClose) => (
+    <ProductGradeForm type={type} data={data} onClose={onClose} />
+  ),
+};
+
+const backdrop = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 },
+};
+
+const modal = {
+  hidden: { opacity: 0, scale: 0.95, y: 30 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 0.25,
+      ease: easeOut,
+    },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.95,
+    y: 20,
+    transition: {
+      duration: 0.2,
+      ease: easeIn,
+    },
+  },
+};
 
 const FormModal = ({ table, type, data, id, children }: Props) => {
   const [open, setOpen] = useState(false);
@@ -17,12 +95,12 @@ const FormModal = ({ table, type, data, id, children }: Props) => {
   // Scroll lock
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
+
     return () => {
       document.body.style.overflow = "auto";
     };
   }, [open]);
 
-  // Delete handler
   const handleDelete = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -35,28 +113,6 @@ const FormModal = ({ table, type, data, id, children }: Props) => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const backdrop = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-    exit: { opacity: 0 },
-  };
-
-  const modal = {
-    hidden: { opacity: 0, scale: 0.95, y: 30 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { duration: 0.25, ease: easeOut },
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.95,
-      y: 20,
-      transition: { duration: 0.2, ease: easeIn },
-    },
   };
 
   const renderContent = () => {
@@ -77,17 +133,11 @@ const FormModal = ({ table, type, data, id, children }: Props) => {
       );
     }
 
-    if (table === "customerCategory") {
-      return (
-        <CustomerCategoryForm
-          type={type as "create" | "update"}
-          data={data}
-          onClose={() => setOpen(false)}
-        />
-      );
+    if ((type === "create" || type === "update") && forms[table]) {
+      return forms[table](type, data, () => setOpen(false));
     }
 
-    return "Create Or Update Form";
+    return <p className="text-sm text-gray-500">Form not found</p>;
   };
 
   return (
@@ -97,7 +147,6 @@ const FormModal = ({ table, type, data, id, children }: Props) => {
         {children}
       </div>
 
-      {/* MODAL */}
       <AnimatePresence>
         {open && (
           <div className="fixed inset-0 z-50 flex items-center justify-center px-3 sm:px-4">
@@ -111,7 +160,7 @@ const FormModal = ({ table, type, data, id, children }: Props) => {
               onClick={() => setOpen(false)}
             />
 
-            {/* Modal Box */}
+            {/* Modal */}
             <motion.div
               variants={modal}
               initial="hidden"

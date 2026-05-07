@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import TableSearch from "@/components/TableSearch";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -49,17 +50,28 @@ const SalesPage = () => {
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${salesItem.id}`}>
-              <IoEyeOutline className="text-primary text-base sm:text-lg" />
+            <Link href={`/dashboard/sales/${salesItem.id}`}>
+              <IoEyeOutline
+                size={16}
+                className="text-primary text-base sm:text-lg"
+              />
             </Link>
-            <Link href={`/quotations/${salesItem.id}`}>
-              <FaDownload className="text-success text-base sm:text-lg" />
+            <Link href={`/dashboard/sales/${salesItem.id}`}>
+              <FaDownload
+                size={16}
+                className="text-success text-base sm:text-lg"
+              />
             </Link>
-            <Link href={`/quotations/${salesItem.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            {role === "admin" && (
+              <Tooltip content="Delete" position="bottom">
+                <FormModal table="sales" type="delete" id={salesItem.id}>
+                  <MdDeleteOutline
+                    size={16}
+                    className="text-danger text-base sm:text-lg"
+                  />
+                </FormModal>
+              </Tooltip>
+            )}
           </div>
         </td>
       </tr>

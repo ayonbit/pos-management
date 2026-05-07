@@ -9,6 +9,7 @@ import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
 import { QuotationData, role } from "@/lib/data";
 import { QuotationType } from "@/types/Data.type";
+import Link from "next/link";
 import React, { useCallback } from "react";
 import { FaFilter, FaList, FaPlus, FaRegEdit } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
@@ -68,15 +69,16 @@ const Quotations = () => {
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
             {/* VIEW */}
-            {/* <Link href={`/dashboard/quotations/${quotationItem.id}`}></Link> */}
-            <Tooltip content="View" position="bottom">
-              <FormModal type="view" table="quotation" id={quotationItem.id}>
-                <IoEyeOutline
-                  size={16}
-                  className="text-primary text-base sm:text-lg"
-                />
+            <Link href={`/dashboard/quotations/${quotationItem.id}`}>
+              <IoEyeOutline
+                size={16}
+                className="text-primary text-base sm:text-lg"
+              />
+            </Link>
+            {/* <Tooltip content="View" position="bottom">
+                
               </FormModal>
-            </Tooltip>
+            </Tooltip> */}
 
             {/* EDIT */}
             {/* <Link href={`/dashboard/quotations/${quotationItem.id}`}> </Link> */}
@@ -130,20 +132,21 @@ const Quotations = () => {
           {/* Buttons */}
           <div className="flex gap-2">
             <Tooltip content="Add Quotation" position="bottom">
-              <FormModal table="quotation" type="create">
+              {/* <FormModal table="quotation" type="create"></FormModal> */}
+              <Link href="/dashboard/quotations/create">
                 <Button
                   size="sm"
                   variant="outline"
                   className="flex items-center gap-1 px-3"
                 >
-                  <FaPlus size={16} />
+                  <FaPlus size={12} />
                 </Button>
-              </FormModal>
+              </Link>
             </Tooltip>
 
             <Tooltip content="Filter" position="bottom">
               <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaFilter size={16} />
+                <FaFilter size={12} />
               </Button>
             </Tooltip>
           </div>

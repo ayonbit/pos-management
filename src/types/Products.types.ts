@@ -30,7 +30,7 @@ export type ProductBrandType = {
 
 export type ProductGradeType = {
   id: number;
-  grade: string;
+  productGrade: string;
   description: string;
   status: boolean;
 };

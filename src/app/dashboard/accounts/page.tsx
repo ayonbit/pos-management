@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import TableSearch from "@/components/TableSearch";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -8,7 +9,6 @@ import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
 import { AccountListData, role } from "@/lib/data";
 import { AccountListType } from "@/types/Data.type";
-import Link from "next/link";
 import React, { useCallback } from "react";
 import { FaFilter, FaList, FaPlus, FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
@@ -26,7 +26,7 @@ const columns = [
   },
   {
     header: "Account No",
-    accessor: "accnumber",
+    accessor: "accNumber",
   },
   { header: "Opening Balance", accessor: "balance" },
   { header: "Status", accessor: "status" },
@@ -45,22 +45,22 @@ const GeneralAccount = () => {
       >
         <td className="px-2 py-2 whitespace-nowrap">{accountItem.BankName}</td>
 
-        <td className="px-2 py-2 whitespace-nowrap">
+        <td className="px-2 py-2 whitespace-nowrap hidden md:table-cell">
           {accountItem.BranchName}
         </td>
 
-        <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
+        <td className=" px-2 py-2 whitespace-nowrap">
           {accountItem.AccountName}
         </td>
 
-        <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
+        <td className=" px-2 py-2 whitespace-nowrap">
           {accountItem.AccountNo}
         </td>
 
-        <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
+        <td className=" px-2 py-2 whitespace-nowrap">
           {accountItem.OpeningBalance.toFixed(2)}
         </td>
-        <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
+        <td className=" px-2 py-2 whitespace-nowrap">
           <span
             className={`px-2 py-1 rounded-full text-xs font-semibold ${
               accountItem.status
@@ -71,7 +71,7 @@ const GeneralAccount = () => {
             {accountItem.status ? "Active" : "Inactive"}
           </span>
         </td>
-        <td className="hidden md:table-cell px-2 py-2 whitespace-nowrap">
+        <td className=" px-2 py-2 whitespace-nowrap">
           <span
             className={`px-2 py-1 rounded-full text-xs font-semibold ${
               accountItem.default
@@ -85,14 +85,26 @@ const GeneralAccount = () => {
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${accountItem.id}`}>
-              <FaRegEdit className="text-success text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${accountItem.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            <FormModal
+              table="accountList"
+              type="update"
+              id={accountItem.id}
+              data={AccountListData.find((acc) => acc.id === accountItem.id)}
+            >
+              <FaRegEdit
+                size={16}
+                className="text-success text-base sm:text-lg"
+              />
+            </FormModal>
+
+            {role === "admin" && (
+              <FormModal table="accountList" type="delete" id={accountItem.id}>
+                <MdDeleteOutline
+                  size={16}
+                  className="text-danger text-base sm:text-lg"
+                />
+              </FormModal>
+            )}
           </div>
         </td>
       </tr>
@@ -118,14 +130,21 @@ const GeneralAccount = () => {
             <TableSearch />
           </div>
 
-          {/* Buttons */}
           <div className="flex gap-2">
-            <Tooltip content="Add Customer" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-              </Button>
+            {/*Create */}
+            <Tooltip content="Add Bank Acc " position="bottom">
+              <FormModal table="accountList" type="create">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="flex items-center gap-1 px-3"
+                >
+                  <FaPlus size={16} />
+                </Button>
+              </FormModal>
             </Tooltip>
 
+            {/* Filter */}
             <Tooltip content="Filter" position="bottom">
               <Button size="sm" className="flex items-center gap-1 px-3">
                 <FaFilter size={12} />

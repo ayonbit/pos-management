@@ -9,6 +9,7 @@ import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
 import { role, SupplierData } from "@/lib/data";
 import { SupplierType } from "@/types/Data.type";
+import Link from "next/link";
 import React, { useCallback } from "react";
 import { FaFilter, FaList, FaPlus, FaRegEdit } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
@@ -63,14 +64,13 @@ const SupplierPage = () => {
         <td className="px-1 py-2">
           <div className="flex items-center gap-2">
             {/* VIEW */}
-            {/* <Link href={`/dashboard/suppliers/${supplierItem.id}`}></Link> */}
             <Tooltip content="View" position="bottom">
-              <FormModal type="view" table="supplier" id={supplierItem.id}>
+              <Link href={`/dashboard/suppliers/${supplierItem.id}`}>
                 <IoEyeOutline
                   size={16}
                   className="text-primary text-base sm:text-lg"
                 />
-              </FormModal>
+              </Link>
             </Tooltip>
 
             {/* EDIT */}
