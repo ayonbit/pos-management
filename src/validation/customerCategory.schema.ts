@@ -51,4 +51,4 @@ export const customerCategorySchema = z.object({
 export type CustomerCategoryInput = z.input<typeof customerCategorySchema>;
 
 // Parsed/validated output (used for API / DB)
-export type CustomerCategoryType = z.output<typeof customerCategorySchema>;
+// export type CustomerCategoryType = z.output<typeof customerCategorySchema>;

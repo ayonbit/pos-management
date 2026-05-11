@@ -13,7 +13,9 @@ const Table = <T,>({ columns, data, renderRow }: TableProps<T>) => {
             {columns.map((col: Column) => (
               <th
                 key={col.accessor}
-                className={`px-1 py-2 whitespace-nowrap font-medium ${col.className || ""}`}
+                className={`px-1 py-2 whitespace-nowrap font-medium ${
+                  col.className || ""
+                }`}
               >
                 {col.header}
               </th>
@@ -24,7 +26,9 @@ const Table = <T,>({ columns, data, renderRow }: TableProps<T>) => {
         {/* Body */}
         <tbody className="text-xs sm:text-sm">
           {data.map((item, index) => (
-            <React.Fragment key={index}>{renderRow(item)}</React.Fragment>
+            <React.Fragment key={index}>
+              {renderRow(item, index)}
+            </React.Fragment>
           ))}
         </tbody>
       </table>
@@ -32,4 +36,4 @@ const Table = <T,>({ columns, data, renderRow }: TableProps<T>) => {
   );
 };
 
-export default React.memo(Table);
+export default Table;

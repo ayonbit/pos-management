@@ -1,16 +1,28 @@
 export interface FormModalProps {
   table:
     | "quotation"
-    | "product"
+    //SalesSection
     | "sales"
+    |"conditions"
+    //CustomerSection
     | "customer"
+    | "customerCategory"
     | "supplier"
     | "employee"
-    | "customerCategory"
+    //ProductSection
+    | "product"
     | "productBrand"
     | "productGrade"
     | "productUnit"
-    | "accountList";
+    //GeneralAccountSection
+    | "accountList"
+    | "gi"
+    | "accountChart"
+    | "assets"
+    | "paymentMethod"
+    | "liability"
+    | "parties"
+    | "fundTransfer";
 
   type: "create" | "update" | "delete";
   data?: any;

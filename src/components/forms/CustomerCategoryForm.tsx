@@ -14,16 +14,13 @@ type Props = {
   data?: Partial<CustomerCategoryInput>;
   onClose?: () => void;
 };
-
-
-
 const CustomerCategoryForm = ({ type, data, onClose }: Props) => {
   const {
     register,
     handleSubmit,
 
     formState: { errors },
-  } = useForm<CustomerCategoryInput>({
+  } = useForm({
     resolver: zodResolver(customerCategorySchema),
     defaultValues: {
       CusCatName: data?.CusCatName || "",
@@ -50,29 +47,28 @@ const CustomerCategoryForm = ({ type, data, onClose }: Props) => {
       </h1>
 
       {/* Category Name */}
-      <InputField<CustomerCategoryInput>
+      <InputField
         label="Category Name"
         name="CusCatName"
         register={register}
         error={errors.CusCatName}
         placeholder="Enter category name"
       />
-     
 
       {/* Description */}
-      <InputField<CustomerCategoryInput>
+      <InputField
         label="Description"
         name="CusDes"
         register={register}
         error={errors.CusDes}
         placeholder="Enter description"
         as="textarea"
-        inputProps={{ rows: 3 }}
+        textareaProps={{ rows: 3 }}
       />
 
       {/* Amount Fields */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <InputField<CustomerCategoryInput>
+        <InputField
           label="Amount"
           name="CusAmount"
           type="number"
@@ -81,7 +77,7 @@ const CustomerCategoryForm = ({ type, data, onClose }: Props) => {
           placeholder="0 to any amount"
         />
 
-        <InputField<CustomerCategoryInput>
+        <InputField
           label="Amount Of"
           name="CusAmountOf"
           type="number"
@@ -92,7 +88,7 @@ const CustomerCategoryForm = ({ type, data, onClose }: Props) => {
       </div>
 
       {/* Type (Radio) */}
-      <InputField<CustomerCategoryInput>
+      <InputField
         label="Customer Category "
         name="CusType"
         register={register}
@@ -105,7 +101,7 @@ const CustomerCategoryForm = ({ type, data, onClose }: Props) => {
       />
 
       {/* Status */}
-      <InputField<CustomerCategoryInput>
+      <InputField
         label="Active"
         name="CusStatus"
         register={register}

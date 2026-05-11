@@ -29,4 +29,4 @@ export const accountListSchema = z.object({
 
 export type AccountList = z.infer<typeof accountListSchema>;
 export type AccountListInput = z.input<typeof accountListSchema>;
-export type AccountListType = z.output<typeof accountListSchema>;
+// export type AccountListType = z.output<typeof accountListSchema>;

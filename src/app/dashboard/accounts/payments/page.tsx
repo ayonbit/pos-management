@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Pagination from "@/components/ui/Pagination";
@@ -7,21 +8,20 @@ import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
 import { PaymentMethodData, role } from "@/lib/data";
 import { PaymentMethodType } from "@/types/Data.type";
-import Link from "next/link";
 import React, { useCallback } from "react";
-import { FaEdit, FaList, FaPlus } from "react-icons/fa";
+import { FaList, FaPlus } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 
 const columns = [
-  { header: "Serial", accessor: "serial", className: "" },
+  { header: "Serial", accessor: "serial" },
   { header: "Payment Method", accessor: "payment" },
   { header: "Status", accessor: "status" },
-  { header: "Actions", accessor: "action", className: "" },
+  { header: "Actions", accessor: "action" },
 ];
 
 const PaymentMethod = () => {
-  const renderRow = useCallback((item: unknown) => {
-    const paymentMethodItem = item as PaymentMethodType;
+  const renderRow = useCallback((item: PaymentMethodType) => {
+    const paymentMethodItem = item;
 
     return (
       <tr
@@ -44,14 +44,20 @@ const PaymentMethod = () => {
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2 whitespace-nowrap">
-            <Link href={`/sales/conditions/print/${paymentMethodItem.id}`}>
-              <FaEdit className="text-success text-base sm:text-lg cursor-pointer hover:opacity-70" />
-            </Link>
-            <Link href={`/quotations/${paymentMethodItem.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            {role === "admin" && (
+              <Tooltip content="Delete" position="bottom">
+                <FormModal
+                  table="paymentMethod"
+                  type="delete"
+                  id={paymentMethodItem.id}
+                  data={PaymentMethodData.find(
+                    (pay) => pay.id === paymentMethodItem.id,
+                  )}
+                >
+                  <MdDeleteOutline className="text-danger text-base sm:text-lg" />
+                </FormModal>
+              </Tooltip>
+            )}
           </div>
         </td>
       </tr>
@@ -75,9 +81,11 @@ const PaymentMethod = () => {
           {/* Buttons */}
           <div className="flex gap-2">
             <Tooltip content="Add Payment Method" position="left">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-              </Button>
+              <FormModal type="create" table="paymentMethod">
+                <Button size="sm" className="flex items-center gap-1 px-3">
+                  <FaPlus size={12} />
+                </Button>
+              </FormModal>
             </Tooltip>
           </div>
         </div>

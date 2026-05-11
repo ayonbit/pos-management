@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import TableSearch from "@/components/TableSearch";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -8,7 +9,6 @@ import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
 import { AssetsListData, role } from "@/lib/data";
 import { AssetsListType } from "@/types/Data.type";
-import Link from "next/link";
 import React, { useCallback } from "react";
 import { FaList, FaPlus, FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
@@ -33,8 +33,8 @@ const columns = [
 ];
 
 const CompanyAssets = () => {
-  const renderRow = useCallback((item: unknown) => {
-    const assetsItems = item as AssetsListType;
+  const renderRow = useCallback((item: AssetsListType) => {
+    const assetsItems = item;
 
     return (
       <tr
@@ -57,14 +57,29 @@ const CompanyAssets = () => {
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${assetsItems.id}`}>
-              <FaRegEdit className="text-success text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${assetsItems.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            <Tooltip position="bottom" content="Update">
+              <FormModal
+                table="assets"
+                type="update"
+                id={assetsItems.id}
+                data={AssetsListData.find((ass) => ass.id === assetsItems.id)}
+              >
+                <FaRegEdit className="text-success text-base sm:text-lg" />
+              </FormModal>
+            </Tooltip>
+
+            {role === "admin" && (
+              <Tooltip content="Delete" position="bottom">
+                <FormModal
+                  table="assets"
+                  type="delete"
+                  id={assetsItems.id}
+                  data={AssetsListData.find((ass) => ass.id === assetsItems.id)}
+                >
+                  <MdDeleteOutline className="text-danger text-base sm:text-lg" />
+                </FormModal>
+              </Tooltip>
+            )}
           </div>
         </td>
       </tr>
@@ -93,9 +108,11 @@ const CompanyAssets = () => {
           {/* Buttons */}
           <div className="flex gap-2">
             <Tooltip content="Add Assets" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-              </Button>
+              <FormModal table="assets" type="create">
+                <Button size="sm" className="flex items-center gap-1 px-3">
+                  <FaPlus size={12} />
+                </Button>
+              </FormModal>
             </Tooltip>
           </div>
         </div>

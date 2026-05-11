@@ -81,13 +81,13 @@ const ProductPage = () => {
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${productItem.id}`}>
+            <Link href={`/dashboard/products/${productItem.id}`}>
               <IoEyeOutline className="text-primary text-base sm:text-lg" />
             </Link>
-            <Link href={`/quotations/${productItem.id}`}>
+            <Link href={`/dashboard/products/${productItem.id}`}>
               <FaRegEdit className="text-success text-base sm:text-lg" />
             </Link>
-            <Link href={`/quotations/${productItem.id}`}>
+            <Link href={`/dashboard/products/${productItem.id}`}>
               {role === "admin" && (
                 <MdDeleteOutline className="text-danger text-base sm:text-lg" />
               )}

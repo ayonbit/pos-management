@@ -88,6 +88,9 @@ const CustomerCategory = () => {
                   table="customerCategory"
                   type="delete"
                   id={customerCategory.id}
+                  data={CusCategory.find(
+                    (cat) => cat.id === customerCategory.id,
+                  )}
                 >
                   <MdDeleteOutline
                     size={16}

@@ -1,8 +1,8 @@
 import {
   FieldError,
   FieldErrorsImpl,
-  Merge,
   FieldValues,
+  Merge,
   Path,
   UseFormRegister,
 } from "react-hook-form";
@@ -21,8 +21,7 @@ export interface InputFieldProps<T extends FieldValues = any> {
 
   options?: { value: string; label: string }[];
 
-  inputProps?:
-    | React.InputHTMLAttributes<HTMLInputElement>
-    | React.TextareaHTMLAttributes<HTMLTextAreaElement>
-    | React.SelectHTMLAttributes<HTMLSelectElement>;
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+  textareaProps?: React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+  selectProps?: React.SelectHTMLAttributes<HTMLSelectElement>;
 }

@@ -13,4 +13,4 @@ export const productGradeSchema = z.object({
 
 export type ProductGrade = z.infer<typeof productGradeSchema>;
 export type ProductGradeInput = z.input<typeof productGradeSchema>;
-export type ProductGradeType = z.output<typeof productGradeSchema>;
+// export type ProductGradeType = z.output<typeof productGradeSchema>;

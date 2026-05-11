@@ -1,9 +1,9 @@
 "use client";
 
 import {
-  ProductGradeInput,
-  productGradeSchema,
-} from "@/validation/Product/ProductGrade.Schema";
+  PaymentListInput,
+  PaymentListSchema,
+} from "@/validation/GeneralAccounts/PaymentMethodList.Shcema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import InputField from "../../InputField";
@@ -11,21 +11,20 @@ import Button from "../../ui/Button";
 
 type Props = {
   type: "create" | "update";
-  data?: Partial<ProductGradeInput>;
+  data?: Partial<PaymentListInput>;
   onClose?: () => void;
 };
 
-const ProductGradeForm = ({ type, data, onClose }: Props) => {
+const PaymentMethodForm = ({ type, data, onClose }: Props) => {
   const {
     register,
     handleSubmit,
 
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(productGradeSchema),
+    resolver: zodResolver(PaymentListSchema),
     defaultValues: {
-      productGrade: data?.productGrade || "",
-      description: data?.description || "",
+      MethodName: data?.MethodName ?? "",
       status: data?.status ?? true,
     },
   });
@@ -39,26 +38,21 @@ const ProductGradeForm = ({ type, data, onClose }: Props) => {
     <form onSubmit={onSubmit} className="flex flex-col gap-5 sm:gap-6">
       {/* Title */}
       <h1 className="text-base text-center sm:text-lg font-semibold text-gray-700">
-        {type === "create" ? "Create Product Grade" : "Update Product Grade"}
+        {type === "create"
+          ? "Create Payment Method Info"
+          : "Update Payment Method Info"}
       </h1>
 
       {/* Grade Name */}
       <InputField
-        label="Grade Name"
-        name="productGrade"
+        label="Payment Method"
+        name="MethodName"
+        type="text"
         register={register}
-        error={errors.productGrade}
-        placeholder="Enter grade name"
-      />
-      <InputField
-        label="Description"
-        name="description"
-        register={register}
-        error={errors.description}
-        placeholder="Enter description"
+        error={errors.MethodName}
+        placeholder="Bkash,Rocket,Card,Cash"
       />
 
-      {/* Status */}
       <InputField
         label="Active"
         name="status"
@@ -74,4 +68,4 @@ const ProductGradeForm = ({ type, data, onClose }: Props) => {
   );
 };
 
-export default ProductGradeForm;
+export default PaymentMethodForm;

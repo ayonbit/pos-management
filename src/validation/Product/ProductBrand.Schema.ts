@@ -16,4 +16,4 @@ export const productBrandSchema = z.object({
 
 export type ProductBrand = z.infer<typeof productBrandSchema>;
 export type ProductBrandInput = z.input<typeof productBrandSchema>;
-export type ProductBrandType = z.output<typeof productBrandSchema>;
+// export type ProductBrandType = z.output<typeof productBrandSchema>;

@@ -22,7 +22,7 @@ const AccountListForm = ({ type, data, onClose }: Props) => {
     handleSubmit,
 
     formState: { errors },
-  } = useForm<AccountListInput>({
+  } = useForm({
     resolver: zodResolver(accountListSchema),
     defaultValues: {
       AccountNo: data?.AccountNo ?? "",
@@ -91,14 +91,14 @@ const AccountListForm = ({ type, data, onClose }: Props) => {
         placeholder="0.00"
       />
 
-      <InputField<AccountListInput>
+      <InputField
         label="Active"
         name="status"
         register={register}
         as="checkbox"
       />
 
-      <InputField<AccountListInput>
+      <InputField
         label="Default"
         name="default"
         register={register}

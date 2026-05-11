@@ -567,7 +567,7 @@ export const PartyData = [
     PartyId: "PTY-001",
     PartyName: "John Doe",
     Address: "626 Main Street, Phoenix, USA-29112",
-    Phone: "+8801715675623",
+    Phone: "01715675623",
     Email: "john.doe@example.com",
   },
   {
@@ -575,7 +575,7 @@ export const PartyData = [
     PartyId: "PTY-002",
     PartyName: "Jane Smith",
     Address: "123 Oak Avenue, Los Angeles, USA-90001",
-    Phone: "+8801723456789",
+    Phone: "01723456789",
     Email: "jane.smith@example.com",
   },
   {
@@ -583,7 +583,7 @@ export const PartyData = [
     PartyId: "PTY-003",
     PartyName: "Robert Johnson",
     Address: "456 Pine Road, Chicago, USA-60601",
-    Phone: "+8801734567890",
+    Phone: "01734567890",
     Email: "robert.johnson@example.com",
   },
   {
@@ -591,7 +591,7 @@ export const PartyData = [
     PartyId: "PTY-004",
     PartyName: "Emily Davis",
     Address: "789 Elm Street, Houston, USA-77001",
-    Phone: "+8801745678901",
+    Phone: "01745678901",
     Email: "emily.davis@example.com",
   },
   {
@@ -599,7 +599,7 @@ export const PartyData = [
     PartyId: "PTY-005",
     PartyName: "Michael Brown",
     Address: "321 Cedar Lane, New York, USA-10001",
-    Phone: "+8801756789012",
+    Phone: "01756789012",
     Email: "michael.brown@example.com",
   },
   {
@@ -607,7 +607,7 @@ export const PartyData = [
     PartyId: "PTY-006",
     PartyName: "Sarah Wilson",
     Address: "654 Maple Drive, Dallas, USA-75201",
-    Phone: "+8801767890123",
+    Phone: "01767890123",
     Email: "sarah.wilson@example.com",
   },
   {
@@ -615,7 +615,7 @@ export const PartyData = [
     PartyId: "PTY-007",
     PartyName: "David Martinez",
     Address: "987 Birch Court, San Diego, USA-92101",
-    Phone: "+8801778901234",
+    Phone: "01778901234",
     Email: "david.martinez@example.com",
   },
   {
@@ -623,7 +623,7 @@ export const PartyData = [
     PartyId: "PTY-008",
     PartyName: "Lisa Anderson",
     Address: "147 Spruce Way, San Jose, USA-95101",
-    Phone: "+8801789012345",
+    Phone: "01789012345",
     Email: "lisa.anderson@example.com",
   },
   {
@@ -631,7 +631,7 @@ export const PartyData = [
     PartyId: "PTY-009",
     PartyName: "James Taylor",
     Address: "258 Willow Street, Austin, USA-73301",
-    Phone: "+8801790123456",
+    Phone: "01790123456",
     Email: "james.taylor@example.com",
   },
   {
@@ -639,7 +639,7 @@ export const PartyData = [
     PartyId: "PTY-010",
     PartyName: "Patricia Thomas",
     Address: "369 Ash Avenue, Fort Worth, USA-76101",
-    Phone: "+8801801234567",
+    Phone: "01801234567",
     Email: "patricia.thomas@example.com",
   },
 ];
@@ -788,7 +788,14 @@ export const AssetsListData = [
     CurrentBalance: 2100000,
   },
 ];
-
+export const GeneralAccountData = [
+  { id: 1, AccountName: "Assets" },
+  { id: 2, AccountName: "Liabilities" },
+  { id: 3, AccountName: "Income" },
+  { id: 4, AccountName: "Expenses" },
+  { id: 5, AccountName: "Others" },
+  { id: 6, AccountName: "Misc" },
+];
 export const PaymentMethodData = [
   {
     id: 1,
@@ -816,15 +823,15 @@ export const ChartAccountData = [
   {
     id: 1,
     ChartAccountName: "Electricity Bill",
-    GiAccount: "Expense",
-    HeadType: "Expense",
+    GiAccount: "Expenses",
+    HeadType: "Expenses",
     Status: false,
   },
   {
     id: 2,
     ChartAccountName: "Office Rent",
-    GiAccount: "Expense",
-    HeadType: "Expense",
+    GiAccount: "Expenses",
+    HeadType: "Expenses",
     Status: true,
   },
   {
@@ -893,15 +900,15 @@ export const ChartAccountData = [
   {
     id: 12,
     ChartAccountName: "Advertising Expense",
-    GiAccount: "Expense",
-    HeadType: "Expense",
+    GiAccount: "Expenses",
+    HeadType: "Expenses",
     Status: true,
   },
   {
     id: 13,
     ChartAccountName: "Depreciation Expense",
-    GiAccount: "Expense",
-    HeadType: "Expense",
+    GiAccount: "Expenses",
+    HeadType: "Expenses",
     Status: true,
   },
   {
@@ -920,28 +927,6 @@ export const ChartAccountData = [
   },
 ];
 
-export const GeneralAccountData = [
-  {
-    id: 1,
-    AccountName: "Assets",
-  },
-  {
-    id: 2,
-    AccountName: "Liabilities",
-  },
-  {
-    id: 3,
-    AccountName: "Income",
-  },
-  {
-    id: 4,
-    AccountName: "Expenses",
-  },
-  {
-    id: 5,
-    AccountName: "Others",
-  },
-];
 export const AccountListData = [
   {
     id: 1,

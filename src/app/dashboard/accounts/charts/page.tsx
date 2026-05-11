@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import TableSearch from "@/components/TableSearch";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -8,23 +9,21 @@ import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
 import { ChartAccountData, role } from "@/lib/data";
 import { ChartAccountType } from "@/types/Data.type";
-import Link from "next/link";
 import React, { useCallback } from "react";
 import { FaEdit, FaFilter, FaList, FaPlus } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 
 const columns = [
-  { header: "Chart Account Name", accessor: "chartName" },
-  { header: "GI Account", accessor: "giAccount" },
-  { header: "Head Type", accessor: "customer" },
-  { header: "Status", accessor: "status" },
-
+  { header: "Chart Account Name", accessor: "ChartAccountName" },
+  { header: "GI Account", accessor: "GiAccount" },
+  { header: "Head Type", accessor: "HeadType" },
+  { header: "Status", accessor: "Status" },
   { header: "Actions", accessor: "action" },
 ];
 
 const AccountCharts = () => {
-  const renderRow = useCallback((item: unknown) => {
-    const chartAccountItem = item as ChartAccountType;
+  const renderRow = useCallback((item: ChartAccountType) => {
+    const chartAccountItem = item;
 
     return (
       <tr
@@ -54,14 +53,39 @@ const AccountCharts = () => {
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${chartAccountItem.id}`}>
-              <FaEdit className="text-success text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${chartAccountItem.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            <Tooltip content="Update" position="bottom">
+              <FormModal
+                type="update"
+                table="accountChart"
+                id={chartAccountItem.id}
+                data={ChartAccountData.find(
+                  (ca) => ca.id === chartAccountItem.id,
+                )}
+              >
+                <FaEdit
+                  size={16}
+                  className="text-success text-base sm:text-lg"
+                />
+              </FormModal>
+            </Tooltip>
+
+            {role === "admin" && (
+              <Tooltip content="Delete" position="bottom">
+                <FormModal
+                  type="delete"
+                  table="accountChart"
+                  id={chartAccountItem.id}
+                  data={ChartAccountData.find(
+                    (ca) => ca.id === chartAccountItem.id,
+                  )}
+                >
+                  <MdDeleteOutline
+                    size={16}
+                    className="text-danger text-base sm:text-lg"
+                  />
+                </FormModal>
+              </Tooltip>
+            )}
           </div>
         </td>
       </tr>
@@ -89,10 +113,12 @@ const AccountCharts = () => {
 
           {/* Buttons */}
           <div className="flex gap-2">
-            <Tooltip content="Add Sales" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-              </Button>
+            <Tooltip content="Add Char Accounts" position="bottom">
+              <FormModal table="accountChart" type="create">
+                <Button size="sm" className="flex items-center gap-1 px-3">
+                  <FaPlus size={12} />
+                </Button>
+              </FormModal>
             </Tooltip>
 
             <Tooltip content="Filter" position="bottom">

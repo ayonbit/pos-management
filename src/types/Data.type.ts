@@ -44,7 +44,7 @@ export type PartyType = {
   id: number;
   PartyId: string;
   PartyName: string;
-  Address: string;
+  Address?: string;
   Phone: string;
   Email?: string;
 };
@@ -77,12 +77,10 @@ export type ChartAccountType = {
   HeadType: string;
   Status: boolean;
 };
-
-export type GeneralAccountType = {
+export type GeneralAccountListType = {
   id: number;
   AccountName: string;
 };
-
 export type AccountListType = {
   id: number;
   AccountNo: string;

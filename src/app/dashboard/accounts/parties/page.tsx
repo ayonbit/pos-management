@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Pagination from "@/components/ui/Pagination";
@@ -46,14 +47,29 @@ const PartyPage = () => {
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${partyItem.id}`}>
-              <FaRegEdit className="text-success text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${partyItem.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            <Tooltip content="Update" position="bottom">
+              <FormModal
+                table="parties"
+                type="update"
+                id={partyItem.id}
+                data={PartyData.find((pa) => pa.id === partyItem.id)}
+              >
+                <FaRegEdit className="text-success text-base sm:text-lg" />
+              </FormModal>
+            </Tooltip>
+
+            {role === "admin" && (
+              <Tooltip content="Update" position="bottom">
+                <FormModal
+                  table="parties"
+                  type="delete"
+                  id={partyItem.id}
+                  data={PartyData.find((pa) => pa.id === partyItem.id)}
+                >
+                  <MdDeleteOutline className="text-danger text-base sm:text-lg" />
+                </FormModal>
+              </Tooltip>
+            )}
           </div>
         </td>
       </tr>
@@ -75,9 +91,11 @@ const PartyPage = () => {
           {/* Buttons */}
           <div className="flex gap-2">
             <Tooltip content="Add Party" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-              </Button>
+              <FormModal table="parties" type="create">
+                <Button size="sm" className="flex items-center gap-1 px-3">
+                  <FaPlus size={12} />
+                </Button>
+              </FormModal>
             </Tooltip>
           </div>
         </div>

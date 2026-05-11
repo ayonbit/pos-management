@@ -4,61 +4,12 @@ import { FormModalProps } from "@/types/FormModal.type";
 import { AnimatePresence, easeIn, easeOut, motion } from "framer-motion";
 import { ReactNode, useEffect, useState } from "react";
 
-import dynamic from "next/dynamic";
+import { forms } from "./config/formRegistry";
 import Button from "./ui/Button";
 
 interface Props extends FormModalProps {
   children: ReactNode;
 }
-const AccountListForm = dynamic(
-  () => import("./forms/GeneralAccounts/AccountListForm"),
-  {
-    loading: () => <p>Loading...</p>,
-  },
-);
-const CustomerCategoryForm = dynamic(
-  () => import("./forms/CustomerCategoryForm"),
-  {
-    loading: () => <p>Loading...</p>,
-  },
-);
-const ProductBrandFrom = dynamic(
-  () => import("./forms/Product/ProductBrandForm"),
-  {
-    loading: () => <p>Loading...</p>,
-  },
-);
-
-const ProductGradeForm = dynamic(
-  () => import("./forms/Product/ProductGradeForm"),
-  {
-    loading: () => <p>Loading...</p>,
-  },
-);
-
-const forms: {
-  [key: string]: (
-    type: "create" | "update",
-    data?: any,
-    onClose?: () => void,
-  ) => React.ReactNode;
-} = {
-  accountList: (type, data, onClose) => (
-    <AccountListForm type={type} data={data} onClose={onClose} />
-  ),
-
-  customerCategory: (type, data, onClose) => (
-    <CustomerCategoryForm type={type} data={data} onClose={onClose} />
-  ),
-
-  productBrand: (type, data, onClose) => (
-    <ProductBrandFrom type={type} data={data} onClose={onClose} />
-  ),
-
-  productGrade: (type, data, onClose) => (
-    <ProductGradeForm type={type} data={data} onClose={onClose} />
-  ),
-};
 
 const backdrop = {
   hidden: { opacity: 0 },
@@ -149,7 +100,7 @@ const FormModal = ({ table, type, data, id, children }: Props) => {
 
       <AnimatePresence>
         {open && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center px-3 sm:px-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-3 sm:px-4 ">
             {/* Backdrop */}
             <motion.div
               variants={backdrop}
@@ -170,7 +121,7 @@ const FormModal = ({ table, type, data, id, children }: Props) => {
               className="
                 relative bg-white rounded-lg shadow-lg
                 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
-                max-h-[90vh] overflow-y-auto
+                max-h-[90vh] overflow-y-auto no-scrollbar
                 p-4 sm:p-5 md:p-6
               "
             >

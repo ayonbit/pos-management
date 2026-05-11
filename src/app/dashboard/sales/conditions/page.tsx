@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import TableSearch from "@/components/TableSearch";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -8,10 +9,9 @@ import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
 import { role, SalesConditions } from "@/lib/data";
 import { SalesConditionsType } from "@/types/Data.type";
-import Link from "next/link";
 import React, { useCallback } from "react";
-import { FaFilter, FaList, FaPlus } from "react-icons/fa";
-import { MdDeleteOutline, MdPrint } from "react-icons/md";
+import { FaFilter, FaList, FaPlus, FaRegEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
 
 const columns = [
   { header: "Serial", accessor: "serial", className: "" },
@@ -20,8 +20,8 @@ const columns = [
 ];
 
 const SalesConditionsPage = () => {
-  const renderRow = useCallback((item: unknown) => {
-    const salesConditions = item as SalesConditionsType;
+  const renderRow = useCallback((item: SalesConditionsType) => {
+    const salesConditions = item;
 
     return (
       <tr
@@ -32,13 +32,34 @@ const SalesConditionsPage = () => {
         <td className="px-2 py-2">{salesConditions.salesConditions}</td>
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/sales/conditions/print/${salesConditions.id}`}>
-              <MdPrint className="text-success text-base sm:text-lg cursor-pointer hover:opacity-70" />
-            </Link>
+            <Tooltip content="Update" position="bottom">
+              <FormModal
+                table="conditions"
+                type="update"
+                id={salesConditions.id}
+                data={SalesConditions.find(
+                  (con) => con.id === salesConditions.id,
+                )}
+              >
+                <FaRegEdit className="text-success text-base sm:text-lg" />
+              </FormModal>
+            </Tooltip>
             {role === "admin" && (
-              <Link href={`/sales/conditions/delete/${salesConditions.id}`}>
-                <MdDeleteOutline className="text-danger text-base sm:text-lg cursor-pointer hover:opacity-70" />
-              </Link>
+              <Tooltip content="Delete" position="bottom">
+                <FormModal
+                  table="conditions"
+                  type="delete"
+                  id={salesConditions.id}
+                  data={SalesConditions.find(
+                    (con) => con.id === salesConditions.id,
+                  )}
+                >
+                  <MdDeleteOutline
+                    size={16}
+                    className="text-danger text-base sm:text-lg"
+                  />
+                </FormModal>
+              </Tooltip>
             )}
           </div>
         </td>
@@ -65,11 +86,16 @@ const SalesConditionsPage = () => {
 
           {/* Buttons */}
           <div className="flex gap-2">
-            <Tooltip content="Add Sales Condition" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-                <span className="hidden sm:inline">Add</span>
-              </Button>
+            <Tooltip content="Add Condition" position="bottom">
+              <FormModal table="conditions" type="create">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="flex items-center gap-1 px-3"
+                >
+                  <FaPlus size={12} />
+                </Button>
+              </FormModal>
             </Tooltip>
 
             <Tooltip content="Filter" position="bottom">

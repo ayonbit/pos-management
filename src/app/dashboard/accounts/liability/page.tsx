@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import TableSearch from "@/components/TableSearch";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -8,7 +9,6 @@ import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
 import { LiabilitiesListData, role } from "@/lib/data";
 import { LiabilityListType } from "@/types/Data.type";
-import Link from "next/link";
 import React, { useCallback } from "react";
 import { FaList, FaPlus, FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
@@ -59,14 +59,33 @@ const CompanyLiability = () => {
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${liabilityItem.id}`}>
-              <FaRegEdit className="text-success text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${liabilityItem.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            <Tooltip content="Update" position="bottom">
+              <FormModal
+                table="liability"
+                type="update"
+                id={liabilityItem.id}
+                data={LiabilitiesListData.find(
+                  (li) => li.id === liabilityItem.id,
+                )}
+              >
+                <FaRegEdit className="text-success text-base sm:text-lg" />
+              </FormModal>
+            </Tooltip>
+
+            {role === "admin" && (
+              <Tooltip content="Delete" position="bottom">
+                <FormModal
+                  table="liability"
+                  type="delete"
+                  id={liabilityItem.id}
+                  data={LiabilitiesListData.find(
+                    (li) => li.id === liabilityItem.id,
+                  )}
+                >
+                  <MdDeleteOutline className="text-danger text-base sm:text-lg" />
+                </FormModal>
+              </Tooltip>
+            )}
           </div>
         </td>
       </tr>
@@ -92,10 +111,12 @@ const CompanyLiability = () => {
 
           {/* Buttons */}
           <div className="flex gap-2">
-            <Tooltip content="Add Liability" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-              </Button>
+            <Tooltip content="Add Liability" position="left">
+              <FormModal table="liability" type="create">
+                <Button size="sm" className="flex items-center gap-1 px-3">
+                  <FaPlus size={12} />
+                </Button>
+              </FormModal>
             </Tooltip>
           </div>
         </div>

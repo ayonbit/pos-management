@@ -21,7 +21,7 @@ const ProductBrandForm = ({ type, data, onClose }: Props) => {
     handleSubmit,
 
     formState: { errors },
-  } = useForm<ProductBrandInput>({
+  } = useForm({
     resolver: zodResolver(productBrandSchema),
     defaultValues: {
       brandName: data?.brandName || "",
@@ -59,7 +59,7 @@ const ProductBrandForm = ({ type, data, onClose }: Props) => {
       />
 
       {/* Status */}
-      <InputField<ProductBrandInput>
+      <InputField
         label="Active"
         name="status"
         register={register}

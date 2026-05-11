@@ -1,9 +1,9 @@
 "use client";
 
 import {
-  ProductGradeInput,
-  productGradeSchema,
-} from "@/validation/Product/ProductGrade.Schema";
+  GiListInput,
+  giListSchema,
+} from "@/validation/GeneralAccounts/GiList.Schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import InputField from "../../InputField";
@@ -11,22 +11,20 @@ import Button from "../../ui/Button";
 
 type Props = {
   type: "create" | "update";
-  data?: Partial<ProductGradeInput>;
+  data?: Partial<GiListInput>;
   onClose?: () => void;
 };
 
-const ProductGradeForm = ({ type, data, onClose }: Props) => {
+const GiListForm = ({ type, data, onClose }: Props) => {
   const {
     register,
     handleSubmit,
 
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(productGradeSchema),
+    resolver: zodResolver(giListSchema),
     defaultValues: {
-      productGrade: data?.productGrade || "",
-      description: data?.description || "",
-      status: data?.status ?? true,
+      AccountName: data?.AccountName ?? "",
     },
   });
 
@@ -39,31 +37,19 @@ const ProductGradeForm = ({ type, data, onClose }: Props) => {
     <form onSubmit={onSubmit} className="flex flex-col gap-5 sm:gap-6">
       {/* Title */}
       <h1 className="text-base text-center sm:text-lg font-semibold text-gray-700">
-        {type === "create" ? "Create Product Grade" : "Update Product Grade"}
+        {type === "create"
+          ? "Create GI Account Info"
+          : "Update GI Account Info"}
       </h1>
 
       {/* Grade Name */}
       <InputField
-        label="Grade Name"
-        name="productGrade"
+        label="Account Name"
+        name="AccountName"
+        type="text"
         register={register}
-        error={errors.productGrade}
-        placeholder="Enter grade name"
-      />
-      <InputField
-        label="Description"
-        name="description"
-        register={register}
-        error={errors.description}
-        placeholder="Enter description"
-      />
-
-      {/* Status */}
-      <InputField
-        label="Active"
-        name="status"
-        register={register}
-        as="checkbox"
+        error={errors.AccountName}
+        placeholder="Enter Account Name"
       />
 
       {/* Actions */}
@@ -74,4 +60,4 @@ const ProductGradeForm = ({ type, data, onClose }: Props) => {
   );
 };
 
-export default ProductGradeForm;
+export default GiListForm;

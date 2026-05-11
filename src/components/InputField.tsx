@@ -22,12 +22,14 @@ type Props<T extends FieldValues> = {
   type?: string;
   placeholder?: string;
 
-  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<FieldValues>>;
 
   as?: "input" | "textarea" | "select" | "checkbox" | "radio";
   options?: Option[];
 
-  inputProps?: any; // keep simple & flexible
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+  textareaProps?: React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+  selectProps?: React.SelectHTMLAttributes<HTMLSelectElement>;
 };
 
 const InputField = <T extends FieldValues>({
@@ -40,6 +42,8 @@ const InputField = <T extends FieldValues>({
   as = "input",
   options = [],
   inputProps,
+  textareaProps,
+  selectProps,
 }: Props<T>) => {
   return (
     <div className="flex flex-col gap-1">
@@ -64,18 +68,23 @@ const InputField = <T extends FieldValues>({
         <textarea
           {...register(name)}
           placeholder={placeholder}
-          {...inputProps}
+          {...textareaProps}
           className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       )}
 
       {/* SELECT */}
+
       {as === "select" && (
         <select
           {...register(name)}
-          {...inputProps}
+          {...selectProps}
           className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
+          <option value="" disabled>
+            Select{label}
+          </option>
+
           {options.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.label}
@@ -83,7 +92,6 @@ const InputField = <T extends FieldValues>({
           ))}
         </select>
       )}
-
       {/* CHECKBOX */}
       {as === "checkbox" && (
         <label className="flex items-center gap-2 cursor-pointer">
