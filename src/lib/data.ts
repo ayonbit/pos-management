@@ -1870,6 +1870,8 @@ export const CustomerData = [
     Email: "john.doe@example.com",
     Balance: 10000,
     Action: true,
+    CustomerCategory: "Regular Customer",
+    DueLimit: 5000,
   },
   {
     id: 2,
@@ -1880,6 +1882,8 @@ export const CustomerData = [
     Email: "jane.smith@example.com",
     Balance: 15000,
     Action: true,
+    CustomerCategory: "Premium Customer",
+    DueLimit: 10000,
   },
   {
     id: 3,
@@ -1890,6 +1894,8 @@ export const CustomerData = [
     Email: "robert.johnson@example.com",
     Balance: 7500,
     Action: false,
+    CustomerCategory: "Regular Customer",
+    DueLimit: 5000,
   },
   {
     id: 4,
@@ -1900,6 +1906,8 @@ export const CustomerData = [
     Email: "emily.davis@example.com",
     Balance: 20000,
     Action: true,
+    CustomerCategory: "Premium Customer",
+    DueLimit: 15000,
   },
   {
     id: 5,
@@ -1910,6 +1918,8 @@ export const CustomerData = [
     Email: "michael.brown@example.com",
     Balance: 5000,
     Action: true,
+    CustomerCategory: "NEW Customer",
+    DueLimit: 1000,
   },
   {
     id: 6,
@@ -1920,6 +1930,8 @@ export const CustomerData = [
     Email: "sarah.wilson@example.com",
     Balance: 12000,
     Action: false,
+    CustomerCategory: "Regular Customer",
+    DueLimit: 5000,
   },
   {
     id: 7,
@@ -1930,6 +1942,8 @@ export const CustomerData = [
     Email: "david.martinez@example.com",
     Balance: 18000,
     Action: true,
+    CustomerCategory: "Premium Customer",
+    DueLimit: 12000,
   },
   {
     id: 8,
@@ -1940,6 +1954,8 @@ export const CustomerData = [
     Email: "lisa.anderson@example.com",
     Balance: 8500,
     Action: true,
+    CustomerCategory: "Regular Customer",
+    DueLimit: 5000,
   },
   {
     id: 9,
@@ -1950,6 +1966,8 @@ export const CustomerData = [
     Email: "james.taylor@example.com",
     Balance: 22000,
     Action: false,
+    CustomerCategory: "VIP Customer",
+    DueLimit: 20000,
   },
   {
     id: 10,
@@ -1960,6 +1978,8 @@ export const CustomerData = [
     Email: "patricia.thomas@example.com",
     Balance: 9500,
     Action: true,
+    CustomerCategory: "Regular Customer",
+    DueLimit: 5000,
   },
   {
     id: 11,
@@ -1970,6 +1990,8 @@ export const CustomerData = [
     Email: "christopher.moore@example.com",
     Balance: 3000,
     Action: true,
+    CustomerCategory: "NEW Customer",
+    DueLimit: 1000,
   },
   {
     id: 12,
@@ -1980,6 +2002,8 @@ export const CustomerData = [
     Email: "jennifer.jackson@example.com",
     Balance: 16000,
     Action: false,
+    CustomerCategory: "Premium Customer",
+    DueLimit: 10000,
   },
   {
     id: 13,
@@ -1990,6 +2014,8 @@ export const CustomerData = [
     Email: "daniel.white@example.com",
     Balance: 7000,
     Action: true,
+    CustomerCategory: "Regular Customer",
+    DueLimit: 5000,
   },
   {
     id: 14,
@@ -2000,6 +2026,8 @@ export const CustomerData = [
     Email: "linda.harris@example.com",
     Balance: 13500,
     Action: true,
+    CustomerCategory: "Regular Customer",
+    DueLimit: 5000,
   },
   {
     id: 15,
@@ -2010,5 +2038,7 @@ export const CustomerData = [
     Email: "paul.martin@example.com",
     Balance: 11000,
     Action: false,
+    CustomerCategory: "Regular Customer",
+    DueLimit: 5000,
   },
 ];

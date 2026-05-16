@@ -61,8 +61,11 @@ const AccountListForm = dynamic(
 );
 
 //Customer
+const CustomerForm = dynamic(() => import("../forms/Customer/CustomerForm"), {
+  loading: () => <p>Loading...</p>,
+});
 const CustomerCategoryForm = dynamic(
-  () => import("../forms/CustomerCategoryForm"),
+  () => import("../forms/Customer/CustomerCategoryForm"),
   {
     loading: () => <p>Loading...</p>,
   },
@@ -122,6 +125,9 @@ export const forms: {
     <AccountListForm type={type} data={data} onClose={onClose} />
   ),
   //Customer
+  customer: (type, data, onClose) => (
+    <CustomerForm type={type} data={data} onClose={onClose} />
+  ),
   customerCategory: (type, data, onClose) => (
     <CustomerCategoryForm type={type} data={data} onClose={onClose} />
   ),

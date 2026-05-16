@@ -9,22 +9,39 @@ const Button = ({
   className,
   ...props
 }: ButtonProps) => {
-  const baseStyles =
-    "inline-flex items-center justify-center rounded-sm font-medium transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed";
+  const baseStyles = `
+    inline-flex items-center justify-center
+    whitespace-nowrap
+    rounded-xl
+    text-sm font-medium
+    transition-all duration-200
+
+    focus:outline-none focus:ring-2 focus:ring-offset-2
+
+    disabled:pointer-events-none
+    disabled:opacity-50
+
+    active:scale-[0.98]
+  `;
 
   const variants = {
-    default: "bg-outline text-gray-800 hover:bg-outline-hover",
-    primary: "bg-primary text-white hover:bg-primary-hover",
-    outline: "border border-gray-300 text-gray-800 hover:bg-outline",
-    danger: "bg-danger text-white hover:bg-danger-hover",
-    success: "bg-success text-white hover:bg-success-hover",
+    default: "bg-gray-100 text-gray-800 hover:bg-gray-200",
+
+    primary: "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-400",
+
+    outline: "border border-gray-300 bg-white text-gray-800 hover:bg-gray-100",
+
+    danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-400",
+
+    success: "bg-green-600 text-white hover:bg-green-700 focus:ring-green-400",
   };
 
+  // Height-based sizing like shadcn
   const sizes = {
-    sm: "px-2 py-1 text-xs sm:px-3 sm:py-1.5 sm:text-sm",
-    default: "px-3 py-1.5 text-sm sm:px-4 sm:py-2",
-    md: "px-4 py-2 text-sm sm:px-5 sm:py-2.5",
-    xl: "px-5 py-2.5 text-sm sm:px-6 sm:py-3 sm:text-base",
+    sm: "h-8 px-3 text-xs",
+    default: "h-10 px-4 py-2",
+    lg: "h-11 px-6 text-base",
+    icon: "h-10 w-10",
   };
 
   return (

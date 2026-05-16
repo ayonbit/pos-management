@@ -11,8 +11,8 @@ export default function NotFound() {
           Oops! The page you&apos;re looking for doesn&apos;t exist or has been
           moved.
         </p>
-        <Button size="xl" variant="primary" className="mt-4">
-          <Link href="/" className="text-lg">
+        <Button size="lg" variant="primary" className="mt-4">
+          <Link href="/dashboard" className="text-lg">
             Return Home
           </Link>
         </Button>

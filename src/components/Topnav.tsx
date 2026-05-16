@@ -65,7 +65,7 @@ const TopNav = () => {
       <div className="flex items-center gap-4 md:gap-6 justify-end flex-1">
         <SearchBar />
         <RefreshButton onRefresh={handleRefresh} />
-        <NotificationDropdown />
+        <NotificationDropdown  />
         <UserDropdown
           userName="Ayon Bit"
           userEmail="ayon@example.com"

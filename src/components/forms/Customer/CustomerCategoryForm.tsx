@@ -1,13 +1,13 @@
 "use client";
 
+import InputField from "@/components/InputField";
+import Button from "@/components/ui/Button";
 import {
   CustomerCategoryInput,
   customerCategorySchema,
-} from "@/validation/customerCategory.schema";
+} from "@/validation/Customer/customerCategory.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import InputField from "../InputField";
-import Button from "../ui/Button";
 
 type Props = {
   type: "create" | "update";

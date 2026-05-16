@@ -7,7 +7,7 @@ export type ButtonVariant =
   | "danger"
   | "success";
 
-export type ButtonSize = "sm" | "default" | "md" | "xl";
+export type ButtonSize = "sm" | "default" | "lg" | "icon";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;

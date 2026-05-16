@@ -155,9 +155,10 @@ export type CustomerType = {
   Address: string;
   Phone: string;
   Email?: string;
-  Date: string;
   Action: boolean;
   Balance: number;
+  CustomerCategory: string;
+  DueLimit: number;
 };
 
 export type QuotationType = {

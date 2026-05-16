@@ -27,8 +27,8 @@ const columns = [
 ];
 
 const CustomerPage = () => {
-  const renderRow = useCallback((item: unknown) => {
-    const customerItem = item as CustomerType;
+  const renderRow = useCallback((item: CustomerType) => {
+    const customerItem = item;
 
     return (
       <tr
@@ -86,9 +86,14 @@ const CustomerPage = () => {
             </Tooltip>
 
             {/* EDIT */}
-            {/* <Link href={`/dashboard/customers/${customerItem.id}`}> </Link> */}
+
             <Tooltip content="Edit" position="bottom">
-              <FormModal type="update" table="customer" data={customerItem}>
+              <FormModal
+                type="update"
+                table="customer"
+                id={customerItem.id}
+                data={CustomerData.find((cus) => cus.id === customerItem.id)}
+              >
                 <FaRegEdit
                   size={16}
                   className="text-success text-base sm:text-lg"
@@ -99,7 +104,12 @@ const CustomerPage = () => {
             {/* DELETE */}
             {role === "admin" && (
               <Tooltip content="Delete" position="bottom">
-                <FormModal table="customer" type="delete" id={customerItem.id}>
+                <FormModal
+                  table="customer"
+                  type="delete"
+                  id={customerItem.id}
+                  data={CustomerData.find((cus) => cus.id === customerItem.id)}
+                >
                   <MdDeleteOutline
                     size={16}
                     className="text-danger text-base sm:text-lg"

@@ -18,7 +18,7 @@ const RefreshButton = ({ onRefresh }: RefreshButtonProps) => {
         className="rounded-full w-8 h-8 flex items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors"
         onClick={handleRefresh}
       >
-        <SlRefresh size={18} className="text-gray-600" />
+        <SlRefresh size={16} className="text-gray-600" />
       </div>
     </Tooltip>
   );
