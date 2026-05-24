@@ -4,6 +4,21 @@ import dynamic from "next/dynamic";
 import React from "react";
 
 // Form imports
+
+//Payroll
+const EmployeeListForm = dynamic(
+  () => import("../forms/Payroll/EmployeeListForm"),
+  {
+    loading: () => <p>Loading...</p>,
+  },
+);
+//Supplier
+const SupplierListForm = dynamic(
+  () => import("../forms/Supplier/SupplierForm"),
+  {
+    loading: () => <p>Loading...</p>,
+  },
+);
 //Sales
 const SalesConditionsForm = dynamic(
   () => import("../forms/Sales/ConditionsForm"),
@@ -71,7 +86,13 @@ const CustomerCategoryForm = dynamic(
   },
 );
 //Products
-const ProductBrandFrom = dynamic(
+const ProductUnitForm = dynamic(
+  () => import("../forms/Product/ProductUnitForm"),
+  {
+    loading: () => <p>Loading...</p>,
+  },
+);
+const ProductBrandForm = dynamic(
   () => import("../forms/Product/ProductBrandForm"),
   {
     loading: () => <p>Loading...</p>,
@@ -93,6 +114,15 @@ export const forms: {
     onClose?: () => void,
   ) => React.ReactNode;
 } = {
+  //Payroll
+  employees: (type, data, onClose) => (
+    <EmployeeListForm type={type} data={data} onClose={onClose} />
+  ),
+  //Supplier
+
+  supplier: (type, data, onClose) => (
+    <SupplierListForm type={type} data={data} onClose={onClose} />
+  ),
   //Sales
   conditions: (type, data, onClose) => (
     <SalesConditionsForm type={type} data={data} onClose={onClose} />
@@ -132,8 +162,11 @@ export const forms: {
     <CustomerCategoryForm type={type} data={data} onClose={onClose} />
   ),
   //Product
+  productUnit: (type, data, onClose) => (
+    <ProductUnitForm type={type} data={data} onClose={onClose} />
+  ),
   productBrand: (type, data, onClose) => (
-    <ProductBrandFrom type={type} data={data} onClose={onClose} />
+    <ProductBrandForm type={type} data={data} onClose={onClose} />
   ),
 
   productGrade: (type, data, onClose) => (

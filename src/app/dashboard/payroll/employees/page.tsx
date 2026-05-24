@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import TableSearch from "@/components/TableSearch";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -8,6 +9,7 @@ import Table from "@/components/ui/Table";
 import Tooltip from "@/components/ui/ToolTips";
 import { EmployeesList, role } from "@/lib/data";
 import { EmployeesListType } from "@/types/Data.type";
+import { format } from "date-fns";
 import Link from "next/link";
 import React, { useCallback } from "react";
 import { FaFilter, FaList, FaPlus, FaRegEdit } from "react-icons/fa";
@@ -24,8 +26,8 @@ const columns = [
 ];
 
 const EmployeeListPage = () => {
-  const renderRow = useCallback((item: unknown) => {
-    const employeeItem = item as EmployeesListType;
+  const renderRow = useCallback((item: EmployeesListType) => {
+    const employeeItem = item;
 
     return (
       <tr
@@ -49,22 +51,46 @@ const EmployeeListPage = () => {
         </td>
 
         <td className=" px-2 py-2 whitespace-nowrap">
-          {employeeItem.employeeJoiningDate}
+          {format(employeeItem.employeeJoiningDate, "MMM dd yyyy")}
         </td>
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${employeeItem.id}`}>
-              <IoEyeOutline className="text-primary text-base sm:text-lg" />
+            <Link href={`/dashboard/payroll/employees/${employeeItem.id}`}>
+              <IoEyeOutline
+                size={16}
+                className="text-primary text-base sm:text-lg"
+              />
             </Link>
-            <Link href={`/quotations/${employeeItem.id}`}>
-              <FaRegEdit className="text-success text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${employeeItem.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            <Tooltip content="Update" position="bottom">
+              <FormModal
+                type="update"
+                table="employees"
+                id={employeeItem.id}
+                data={EmployeesList.find((emp) => emp.id === employeeItem.id)}
+              >
+                <FaRegEdit
+                  size={16}
+                  className="text-success text-base sm:text-lg"
+                />
+              </FormModal>
+            </Tooltip>
+
+            {role === "admin" && (
+              <Tooltip content="delete" position="bottom">
+                <FormModal
+                  type="delete"
+                  table="employees"
+                  data={EmployeesList.find((emp) => emp.id === employeeItem.id)}
+                  id={employeeItem.id}
+                >
+                  <MdDeleteOutline
+                    size={16}
+                    className="text-danger text-base sm:text-lg"
+                  />
+                </FormModal>
+              </Tooltip>
+            )}
           </div>
         </td>
       </tr>
@@ -91,9 +117,11 @@ const EmployeeListPage = () => {
           {/* Buttons */}
           <div className="flex gap-2">
             <Tooltip content="Add Employee" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-              </Button>
+              <FormModal table="employees" type="create">
+                <Button size="sm" className="flex items-center gap-1 px-3">
+                  <FaPlus size={12} />
+                </Button>
+              </FormModal>
             </Tooltip>
 
             <Tooltip content="Filter" position="bottom">

@@ -74,7 +74,7 @@ const SupplierPage = () => {
             </Tooltip>
 
             {/* EDIT */}
-            {/* <Link href={`/dashboard/suppliers/${supplierItem.id}`}> </Link> */}
+           
             <Tooltip content="Edit" position="bottom">
               <FormModal type="update" table="supplier" data={supplierItem}>
                 <FaRegEdit

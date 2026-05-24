@@ -28,7 +28,7 @@ export type EmployeesListType = {
   employeeAddress: string;
   employeeEmail: string;
   employeeSalary: number;
-  employeeJoiningDate: string;
+  employeeJoiningDate: Date;
 };
 
 export type FundTransferType = {
@@ -136,6 +136,7 @@ export type SupplierType = {
   Phone: string;
   Email: string;
   Balance: number;
+  DueLimit: number;
 };
 
 export type CustomerCat = {

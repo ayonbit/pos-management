@@ -1,5 +1,6 @@
 "use client";
 
+import FormModal from "@/components/FormModal";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Pagination from "@/components/ui/Pagination";
@@ -8,7 +9,6 @@ import Tooltip from "@/components/ui/ToolTips";
 import { role } from "@/lib/data";
 import { ProductUnit } from "@/lib/ProductsData";
 import { ProductUnitType } from "@/types/Products.types";
-import Link from "next/link";
 import React, { useCallback } from "react";
 import { FaList, FaPlus, FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
@@ -21,8 +21,8 @@ const columns = [
 ];
 
 const UnitPage = () => {
-  const renderRow = useCallback((item: unknown) => {
-    const unitItem = item as ProductUnitType;
+  const renderRow = useCallback((item: ProductUnitType) => {
+    const unitItem = item;
 
     return (
       <tr
@@ -50,14 +50,29 @@ const UnitPage = () => {
 
         <td className="px-2 py-2">
           <div className="flex items-center gap-2">
-            <Link href={`/quotations/${unitItem.id}`}>
-              <FaRegEdit className="text-success text-base sm:text-lg" />
-            </Link>
-            <Link href={`/quotations/${unitItem.id}`}>
-              {role === "admin" && (
-                <MdDeleteOutline className="text-danger text-base sm:text-lg" />
-              )}
-            </Link>
+            <Tooltip content="Update" position="bottom">
+              <FormModal
+                type="update"
+                table="productUnit"
+                id={unitItem.id}
+                data={ProductUnit.find((u) => u.id === unitItem.id)}
+              >
+                <FaRegEdit className="text-success text-base sm:text-lg cursor-pointer" />
+              </FormModal>
+            </Tooltip>
+
+            {role === "admin" && (
+              <Tooltip content="Delete" position="bottom">
+                <FormModal
+                  type="delete"
+                  table="productUnit"
+                  id={unitItem.id}
+                  data={ProductUnit.find((u) => u.id === unitItem.id)}
+                >
+                  <MdDeleteOutline className="text-danger text-base sm:text-lg cursor-pointer" />
+                </FormModal>
+              </Tooltip>
+            )}
           </div>
         </td>
       </tr>
@@ -79,9 +94,11 @@ const UnitPage = () => {
           {/* Buttons */}
           <div className="flex gap-2">
             <Tooltip content="Add Unit" position="bottom">
-              <Button size="sm" className="flex items-center gap-1 px-3">
-                <FaPlus size={12} />
-              </Button>
+              <FormModal type="create" table="productUnit">
+                <Button size="sm" className="flex items-center gap-1 px-3">
+                  <FaPlus size={12} />
+                </Button>
+              </FormModal>
             </Tooltip>
           </div>
         </div>

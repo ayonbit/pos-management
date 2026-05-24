@@ -3,7 +3,7 @@ export interface FormModalProps {
     | "quotation"
     //SalesSection
     | "sales"
-    |"conditions"
+    | "conditions"
     //CustomerSection
     | "customer"
     | "customerCategory"
@@ -22,7 +22,9 @@ export interface FormModalProps {
     | "paymentMethod"
     | "liability"
     | "parties"
-    | "fundTransfer";
+    | "fundTransfer"
+    //Payroll
+    | "employees";
 
   type: "create" | "update" | "delete";
   data?: any;
