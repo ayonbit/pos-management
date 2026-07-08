@@ -12,7 +12,7 @@ const Button = ({
   const baseStyles = `
     inline-flex items-center justify-center
     whitespace-nowrap
-    rounded-xl
+    rounded-md
     text-sm font-medium
     transition-all duration-200
 

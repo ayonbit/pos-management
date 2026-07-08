@@ -11,12 +11,13 @@ const Branding = () => {
         className="flex items-center justify-center md:justify-start gap-2.5 group"
       >
         {/* Logo with hover effect */}
-        <div className="relative flex-shrink-0">
+        <div className="relative shrink-0">
           <Image
             src="/file.svg"
             alt="Smart Account"
             width={32}
             height={32}
+            loading="eager"
             className="transition-transform duration-200 group-hover:scale-105 group-hover:rotate-3"
             priority
           />

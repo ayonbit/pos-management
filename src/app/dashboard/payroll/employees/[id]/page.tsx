@@ -1,6 +1,8 @@
 import { EmployeesList } from "@/lib/data";
 import { EmployeesListType } from "@/types/Data.type";
 import { notFound } from "next/navigation";
+import EmployeeDetailsCard from "./EmployeeDetailsCard";
+
 type Props = {
   params: Promise<{
     id: string;
@@ -16,8 +18,7 @@ const SingleEmployee = async ({ params }: Props) => {
   if (!employee) {
     return notFound();
   }
-  //   return <CustomerDetailsCard customer={employee} />;
-  return <div>{employee.employeeNid}</div>;
+  return <EmployeeDetailsCard employee={employee} />;
 };
 
 export default SingleEmployee;

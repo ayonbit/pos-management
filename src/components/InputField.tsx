@@ -110,7 +110,7 @@ const InputField = <T extends FieldValues>({
           className={`
             ${baseInputClass}
             resize-none
-            min-h-[100px]
+            min-h-25
             ${error ? errorClass : ""}
             ${textareaProps?.className || ""}
           `}
